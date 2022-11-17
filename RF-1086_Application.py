@@ -52,7 +52,7 @@ def sendAuthCodeToUser(username, userpassword):
    else:
       return {False, soup.find("a:message").string}
 
-def sendAuthCodeToUser(username, userpassword):
+def sendAuthCodeToUser(username, userpassword, authcode, orgnumber, data):
    headers = {
       "Accept-Encoding": "gzip,deflate",
       "Content-Type" : "text/xml;charset=UTF-8",
@@ -62,8 +62,18 @@ def sendAuthCodeToUser(username, userpassword):
       "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
    }
  
-   body = """
+   formData = """
+   <Skjema skjemanummer="890" spesifikasjonsnummer="12144" blankettnummer="RF-1086" tittel="Aksjonærregisteroppgaven" gruppeid="2586">
+      <GenerellInformasjon-grp-2587 gruppeid="2587">
+         <Selskap-grp-2588 gruppeid="2588">
+            <EnhetOrganisasjonsnummer-datadef-18 orid="18">911007118</EnhetOrganisasjonsnummer-datadef-18>
+            <EnhetNavn-datadef-1 orid="1">SALTSTRAUMEN OG JELSA</EnhetNavn-datadef-1>
+         </Selskap-grp-2588>
+      </GenerellInformasjon-grp-2587>
+   </Skjema>
+   """.format()
 
+   body = """
    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/Intermediary/Shipment/IntermediaryInbound/2009/10">
       <soapenv:Header/>
       <soapenv:Body>
@@ -88,16 +98,7 @@ def sendAuthCodeToUser(username, userpassword):
                         <ns:DataFormatVersion>12144</ns:DataFormatVersion>
                         <ns:EndUserSystemReference>1</ns:EndUserSystemReference>
                         <ns:FormData>
-                        <![CDATA[
-                           <Skjema skjemanummer="890" spesifikasjonsnummer="12144" blankettnummer="RF-1086" tittel="Aksjonærregisteroppgaven" gruppeid="2586">
-                              <GenerellInformasjon-grp-2587 gruppeid="2587">
-                                 <Selskap-grp-2588 gruppeid="2588">
-                                    <EnhetOrganisasjonsnummer-datadef-18 orid="18">911007118</EnhetOrganisasjonsnummer-datadef-18>
-                                    <EnhetNavn-datadef-1 orid="1">SALTSTRAUMEN OG JELSA</EnhetNavn-datadef-1>
-                                 </Selskap-grp-2588>
-                              </GenerellInformasjon-grp-2587>
-                           </Skjema>
-                           ]]>
+                        <![CDATA[{formData_Str}]]>
                         </ns:FormData>
                      </ns:Form>
                   </ns:Forms>
@@ -110,9 +111,17 @@ def sendAuthCodeToUser(username, userpassword):
    </soapenv:Envelope>
 
    """.format(
-      SystemUserName_Str = SystemUserName, 
-      UserSSN_Str = username, 
-      UserPassword_Str = userpassword)
+         SystemUserName_Str = SystemUserName, 
+         SystemPassword_Str = SystemPassword, 
+         UserSSN_Str = username, 
+         UserPassword_Str = userpassword,
+         UserPin_Str = authcode,
+         formData_Str = formData,
+         UniqueNumIdentifier = 0,
+         CompanyNumber_Str = orgnumber,
+      )
+
+
    #Posts soap request and stores respons
    re = requests.post("https://tt02.altinn.no/AuthenticationExternal/SystemAuthentication.svc", data=body, headers=headers)
    #Uses beautifulSoup to parse the xml return
