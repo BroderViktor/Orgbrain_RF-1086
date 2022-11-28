@@ -1,0 +1,50 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <SubmitFormTaskBasicResponse xmlns="http://www.altinn.no/services/Intermediary/Shipment/IntermediaryInbound/2009/10">
+            <SubmitFormTaskBasicResult>
+                <ReceiptId>37174064</ReceiptId>
+                <ReceiptText>Form Validation Failed</ReceiptText>
+                <ReceiptHistory>Nov 26 2022  8:03PM - ValidationFailed - Form Validation Failed&#xD;\nNov 26 2022  8:03PM - OK - FormTaskShipment Data is sent to FormTask for Instantiating&#xD;\n</ReceiptHistory>
+                <LastChanged>2022-11-26T20:03:24.953</LastChanged>
+                <ReceiptTypeName>FormTask</ReceiptTypeName>
+                <ReceiptStatusCode>ValidationFailed</ReceiptStatusCode>
+                <ParentReceiptId>0</ParentReceiptId>
+                <References>
+                    <ReferenceBE>
+                        <ReferenceValue>36199</ReferenceValue>
+                        <ReferenceTypeName>ExternalShipmentReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>911007118</ReferenceValue>
+                        <ReferenceTypeName>OwnerPartyReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>974761076</ReferenceValue>
+                        <ReferenceTypeName>PartyReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                </References>
+                <SubReceipts>
+                    <ReceiptExternalBE>
+                        <ReceiptId>37174065</ReceiptId>
+                        <ReceiptText>&lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;</ReceiptText>
+                        <ReceiptHistory>Nov 26 2022  8:03PM - ValidationFailed - &lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;&#xD;\nNov 26 2022  8:03PM - ValidationFailed - &lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;&#xD;\n</ReceiptHistory>
+                        <LastChanged>2022-11-26T20:03:24.953</LastChanged>
+                        <ReceiptTypeName>FormTask</ReceiptTypeName>
+                        <ReceiptStatusCode>ValidationFailed</ReceiptStatusCode>
+                        <ParentReceiptId>37174064</ParentReceiptId>
+                        <References>
+                            <ReferenceBE>
+                                <ReferenceValue>1</ReferenceValue>
+                                <ReferenceTypeName>SendersReference</ReferenceTypeName>
+                                <ReporteeID>0</ReporteeID>
+                            </ReferenceBE>
+                        </References>
+                    </ReceiptExternalBE>
+                </SubReceipts>
+            </SubmitFormTaskBasicResult>
+        </SubmitFormTaskBasicResponse>
+    </s:Body>
+</s:Envelope>
