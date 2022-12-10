@@ -53,11 +53,14 @@ def sendAuthCodeToUser(username, userpassword):
    """.format(
       SystemUserName_Str = SystemUserName, 
       UserSSN_Str = username, 
-      UserPassword_Str = userpassword)
+      UserPassword_Str = userpassword).encode("utf-8")
    #Posts soap request and stores respons
    re = requests.post("https://tt02.altinn.no/AuthenticationExternal/SystemAuthentication.svc", data=body, headers=headers)
+   
+   print(re.content)
+   
    #Uses beautifulSoup to parse the xml return
-   soup = BeautifulSoup(re.content)
+   soup = BeautifulSoup(re.content, features="html.parser")
    #Gets Status code
    responsStatus = soup.find("a:status").string
    if (responsStatus == "Ok"):
@@ -188,7 +191,7 @@ def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(AntallNyutstedteAkjse
          f_EgneAksjerOverført = EgneAksjerOverført,
       )
 
-def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(Antall, AntallEtter, Hendelsestype, Tidspunkt, OverdragendeOrgISIN, Pålydende, EgneAksjerOverført, OverdragendeOrgNum, InnløstPålydende, OverdragendeOrgAkjseklasse):
+def FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv(Antall, AntallEtter, Hendelsestype, Tidspunkt, OverdragendeOrgISIN, Pålydende, EgneAksjerOverført, OverdragendeOrgNum, OverdragendeOrgAkjseklasse):
 
    return """
          <UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454 gruppeid="3454">
@@ -197,14 +200,13 @@ def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(Antall, AntallEtter, 
                <AksjerNyutstedteFondsemisjonMvAntallEtter-datadef-17678 orid="17678">{f_AntallEtter}</AksjerNyutstedteFondsemisjonMvAntallEtter-datadef-17678>
                <AksjerNyutstedteFondsemisjonMvType-datadef-17679 orid="17679">{f_Hendelsestype}</AksjerNyutstedteFondsemisjonMvType-datadef-17679>
                <AksjerNyutstedteFondsemisjonMvTidspunkt-datadef-17680 orid="17680">{f_Tidspunkt}</AksjerNyutstedteFondsemisjonMvTidspunkt-datadef-17680>
-               <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684">{WHAT}</AksjerNyutstedteFondsemisjonMvISIN-datadef-17684>
-               <AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685 orid="17685">{f_OverdragendeOrgISIN}</AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685>
-               <AksjerNyutstedteFondsemisjonMvPalydende-datadef-23949 orid="23949">{f_Pålydende}</AksjerNyutstedteFondsemisjonMvPalydende-datadef-23949>
                <AksjerNyutstedteFondsemisjonMvEgneOverfortAntall-datadef-17682 orid="17682">{f_EgneAksjerOverført}</AksjerNyutstedteFondsemisjonMvEgneOverfortAntall-datadef-17682>
                <EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683 orid="17683">{f_OverdragendeOrgNum}</EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683>
-               <AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950 orid="23950">{f_InnløstPålydende}</AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950>
-               <EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687 orid="17687">{WHAT}</EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687>
+               <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684">{WHAT}</AksjerNyutstedteFondsemisjonMvISIN-datadef-17684>
                <AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905 orid="19905">{f_OverdragendeOrgAkjseklasse}</AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905>
+               <AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685 orid="17685">{f_OverdragendeOrgISIN}</AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685>
+               <AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950 orid="23950">{f_Pålydende}</AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950>
+               <EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687 orid="17687">{WHAT}</EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687>
             </NyutstedteAksjerOmfordeling-grp-3455>
          </UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454>
       """.format(
@@ -216,32 +218,153 @@ def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(Antall, AntallEtter, 
          f_Pålydende = Pålydende,
          f_EgneAksjerOverført = EgneAksjerOverført,
          f_OverdragendeOrgNum = OverdragendeOrgNum,
-         f_InnløstPålydende = InnløstPålydende,
          f_OverdragendeOrgAkjseklasse = OverdragendeOrgAkjseklasse,
          WHAT = "vet ikke",
       )
 
-def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv():
+def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall,HendelsesType,Tidspunkt,InnbetaltOverkurs,Vederlag):
 
    return """
       <SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456 gruppeid="3456">
          <SlettedeAksjerAvgang-grp-3457 gruppeid="3457">
-            <AksjerSlettedeLikvidasjonMvAntall-datadef-17688 orid="17688">695</AksjerSlettedeLikvidasjonMvAntall-datadef-17688>
-         </SlettedeAksjerAvgang-grp-3457>
-         <SlettedeAksjerAvgang-grp-3457 gruppeid="3457">
-            <AksjerSlettedeLikvidasjonMvAntall-datadef-17688 orid="17688">6290</AksjerSlettedeLikvidasjonMvAntall-datadef-17688>
-            <AksjerSlettedeLikvidasjonMvType-datadef-17691 orid="17691">string</AksjerSlettedeLikvidasjonMvType-datadef-17691>
-            <AksjerSlettedeLividasjonMvTidspunkt-datadef-17692 orid="17692">1988-04-25T05:56:46.57</AksjerSlettedeLividasjonMvTidspunkt-datadef-17692>
-            <AksjerSlettedeLikvidasjonMvInnbetaltOverkurs-datadef-28212 orid="28212">3617750.2349058</AksjerSlettedeLikvidasjonMvInnbetaltOverkurs-datadef-28212>
-            <AksjerSlettedeLikvidasjonMvVederlag-datadef-17770 orid="17770">3218450.2349058</AksjerSlettedeLikvidasjonMvVederlag-datadef-17770>
+            <AksjerSlettedeLikvidasjonMvAntall-datadef-17688 orid="17688">{f_Antall}</AksjerSlettedeLikvidasjonMvAntall-datadef-17688>
+            <AksjerSlettedeLikvidasjonMvType-datadef-17691 orid="17691">{f_HendelsesType}</AksjerSlettedeLikvidasjonMvType-datadef-17691>
+            <AksjerSlettedeLividasjonMvTidspunkt-datadef-17692 orid="17692">{f_Tidspunkt}</AksjerSlettedeLividasjonMvTidspunkt-datadef-17692>
+            <AksjerSlettedeLikvidasjonMvInnbetaltOverkurs-datadef-28212 orid="28212">{f_InnbetaltOverkurs}</AksjerSlettedeLikvidasjonMvInnbetaltOverkurs-datadef-28212>
+            <AksjerSlettedeLikvidasjonMvVederlag-datadef-17770 orid="17770">{f_Vederlag}</AksjerSlettedeLikvidasjonMvVederlag-datadef-17770>
          </SlettedeAksjerAvgang-grp-3457>
       </SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456>
       """.format(
-         Antall = Antall,
-        
+         f_Antall = Antall,
+         f_HendelsesType = HendelsesType,
+         f_Tidspunkt = Tidspunkt,
+         f_InnbetaltOverkurs = InnbetaltOverkurs,
+         f_Vederlag = Vederlag,
          WHAT = "vet ikke",
       )
 
+def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(Antall,OvertakendeDatterSelskapISIN,OvertakendeSelskapOrgNmr, OvertakendeMorSelskapISIN, OvertakendeAksjetype,OvertakendePalydende):
+
+   return """
+      <SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458 gruppeid="3458">
+         <SlettedeAksjerOmfordeling-grp-3459 gruppeid="3459">
+            <AksjerSlettedeSpleisMvDatterselskapOvertakendeISINType-datadef-20374 orid="20374">{f_OvertakendeDatterSelskapISIN}</AksjerSlettedeSpleisMvDatterselskapOvertakendeISINType-datadef-20374>
+            <EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703 orid="17703">{f_OvertakendeSelskapOrgNmr}</EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703>
+            <AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704 orid="17704">{f_OvertakendeMorSelskapISIN}</AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704>
+            <AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907 orid="19907">{f_OvertakendeAksjetype}</AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907>
+            <AksjerSlettedeSpleisMvMorselskapOvertakendePalydende-datadef-23955 orid="23955">{f_OvertakendePalydende}</AksjerSlettedeSpleisMvMorselskapOvertakendePalydende-datadef-23955>
+         </SlettedeAksjerOmfordeling-grp-3459>
+      </SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458>
+      """.format(
+         f_Antall = Antall,
+         f_OvertakendeDatterSelskapISIN = OvertakendeDatterSelskapISIN,
+         f_OvertakendeSelskapOrgNmr = OvertakendeSelskapOrgNmr,
+         f_OvertakendeMorSelskapISIN = OvertakendeMorSelskapISIN,
+         f_OvertakendeAksjetype = OvertakendeAksjetype,
+         f_OvertakendePalydende = OvertakendePalydende,
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene(NedsettelseInnbetaltOverkurs, Tidspunkt):
+
+   return """
+      <NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461 gruppeid="3461">
+         <AksjerOverkursNedsettelse-datadef-17707 orid="17707">{f_NedsettelseInnbetaltOverkurs}</AksjerOverkursNedsettelse-datadef-17707>
+         <AksjerOverkursNedsettelseTidspunkt-datadef-17708 orid="17708">{f_Tidspunkt}</AksjerOverkursNedsettelse-datadef-17708>
+      </NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461>
+      """.format(
+         f_NedsettelseInnbetaltOverkurs = NedsettelseInnbetaltOverkurs,
+         f_Tidspunkt = Tidspunkt,
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462(PålydenePerAkjseFør, NedsettelseInnbetaltOverkurs, Tidspunkt):
+
+   return """
+      <ForhoyelseAvAKVedOkningAvPalydende-grp-3462 gruppeid="3462">
+         <AksjeFondsemisjonPalydendeForhoyelse-datadef-23956 orid="23956">{f_PålydenePerAkjseFør}</AksjePalydendeEtterFondsemisjon-datadef-23956>
+         <AksjePalydendeEtterFondsemisjon-datadef-23957 orid="23957">{f_PålydenePerAkjseEtter}</AksjePalydendeEtterFondsemisjon-datadef-23957>
+         <AksjeFondsemisjonTidspunkt-datadef-17712 orid="17712">{f_Tidspunkt}</AksjeFondsemisjonTidspunkt-datadef-17712>
+      </ForhoyelseAvAKVedOkningAvPalydende-grp-3462>
+      """.format(
+         f_PålydenePerAkjseFør = PålydenePerAkjseFør,
+         f_NedsettelseInnbetaltOverkurs = NedsettelseInnbetaltOverkurs,
+         f_Tidspunkt = Tidspunkt,
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAkjseKapital, ØkningIPålydenede, HendelsesType, ForhøyelseAvOverkurs,OrgNummer,ISIN,Akjseklasse):
+
+   return """
+      <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
+         <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713">{f_ForhøyelseAvAkjseKapital}</AksjekapitalNyemisjonForhoyelse-datadef-17713>
+         <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">{f_ØkningIPålydenede}</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
+         <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268">{f_HendelsesType}</AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268>
+         <AksjeOverkursForhoyelse-datadef-22071 orid="22071">{f_ForhøyelseAvOverkurs}</AksjeOverkursForhoyelse-datadef-22071>
+         <EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213 orid="28213">{f_OrgNummer}</EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213>
+         <AksjerNyutstedteNyemisjonMvISIN-datadef-28214 orid="28214">{f_ISIN}</AksjerNyutstedteNyemisjonMvISIN-datadef-28214>
+         <AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215 orid="28215">{f_Akjseklasse}</AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215>
+      </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
+      """.format(
+         f_ForhøyelseAvAkjseKapital = ForhøyelseAvAkjseKapital,
+         f_ØkningIPålydenede = ØkningIPålydenede,
+         f_HendelsesType = HendelsesType,
+         f_ForhøyelseAvOverkurs = ForhøyelseAvOverkurs,
+         f_OrgNummer = OrgNummer,
+         f_ISIN = ISIN,
+         f_Akjseklasse = Akjseklasse,
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK(NedsettekseAvInnbetalt, ReduksjonAvPålydende, PålydendeEtter, Tidspunkt, NedsettelseAvFondsemittert):
+
+   return """
+      <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
+         <AksjekapitalInnbetaltNedsettelse-datadef-17717 orid="17717">{f_NedsettekseAvInnbetalt}</AksjekapitalInnbetaltNedsettelse-datadef-17717>
+         <AksjePalydendeNedsettelseTapsdekning-datadef-23960 orid="23960">{f_ReduksjonAvPålydende}</AksjePalydendeNedsettelseTapsdekning-datadef-23960>
+         <AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961 orid="23961">{f_PålydendeEtter}</AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961>
+         <AksjeNedsettelseTidspunkt-datadef-17720 orid="17720">{f_Tidspunkt}</AksjeNedsettelseTidspunkt-datadef-17720>
+         <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721">{f_NedsettelseAvFondsemittert}</AksjekapitalFondsemittertNedsettelse-datadef-17721>
+      </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
+      """.format(
+         f_NedsettekseAvInnbetalt = NedsettekseAvInnbetalt,
+         f_ReduksjonAvPålydende = ReduksjonAvPålydende,
+         f_PålydendeEtter = PålydendeEtter,
+         f_Tidspunkt = Tidspunkt,
+         f_NedsettelseAvFondsemittert = NedsettelseAvFondsemittert,
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_NedsettelseAKVedReduksjonAvPalydende():
+
+   return """
+      <NedsettelseAKVedReduksjonAvPalydende-grp-3465 gruppeid="3465">
+         <AksjekapitalUtbetalingNedsettelse-datadef-17722 orid="17722">-295749.765094196</AksjekapitalUtbetalingNedsettelse-datadef-17722>
+         <AksjePalydendeNedsettelseUtbetaling-datadef-23962 orid="23962">-4051799.7650942</AksjePalydendeNedsettelseUtbetaling-datadef-23962>
+         <AksjePalydendeEtterNedsettelseUtbetaling-datadef-23963 orid="23963">1663570.2349058</AksjePalydendeEtterNedsettelseUtbetaling-datadef-23963>
+      </NedsettelseAKVedReduksjonAvPalydende-grp-3465>
+      """.format(
+
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_():
+
+   return """
+
+      """.format(
+
+         WHAT = "vet ikke",
+      )
+
+def FillFormData_():
+
+   return """
+
+      """.format(
+
+         WHAT = "vet ikke",
+      )
 
 def sendFormData(username, userpassword, authcode, orgnumber, data):
    headers = {
@@ -294,97 +417,23 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
                      {f_UtstedelseAvAksjerIfmStiftelseNyemisjonMv}
 
                      {f_UtstedelseAvAksjerIfmFondsemisjonSplittMv}
-                  
+
                      {f_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv}
 
-                     <SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458 gruppeid="3458">
-                        <SlettedeAksjerOmfordeling-grp-3459 gruppeid="3459">
-                           <AksjerSlettedeSpleisMvDatterselskapOvertakendeISINType-datadef-20374 orid="20374">string</AksjerSlettedeSpleisMvDatterselskapOvertakendeISINType-datadef-20374>
-                           <EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703 orid="17703">string</EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703>
-                           <AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704 orid="17704">string</AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704>
-                           <AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907 orid="19907">string</AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907>
-                           <AksjerSlettedeSpleisMvMorselskapOvertakendePalydende-datadef-23955 orid="23955">-1789969.7650942</AksjerSlettedeSpleisMvMorselskapOvertakendePalydende-datadef-23955>
-                        </SlettedeAksjerOmfordeling-grp-3459>
-                     </SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458>
-
-
-
+                     {f_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon}
+                  
                      <EndringerIAksjekapitalOgOverkurs-grp-3460 gruppeid="3460">
                         
-                        <NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461 gruppeid="3461" />
-                        <NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461 gruppeid="3461">
-                           <AksjerOverkursNedsettelse-datadef-17707 orid="17707">-3520819.7650942</AksjerOverkursNedsettelse-datadef-17707>
-                        </NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461>
-                        <NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461 gruppeid="3461" />
-                        
-                        <ForhoyelseAvAKVedOkningAvPalydende-grp-3462 gruppeid="3462">
-                           <AksjePalydendeEtterFondsemisjon-datadef-23957 orid="23957">941030.234905804</AksjePalydendeEtterFondsemisjon-datadef-23957>
-                           <AksjeFondsemisjonTidspunkt-datadef-17712 orid="17712">2005-06-14T04:05:59.39</AksjeFondsemisjonTidspunkt-datadef-17712>
-                        </ForhoyelseAvAKVedOkningAvPalydende-grp-3462>
-                        
-                        <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
-                           <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713">-3461659.7650942</AksjekapitalNyemisjonForhoyelse-datadef-17713>
-                           <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">4289440.2349058</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
-                           <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268">string</AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268>
-                           <AksjeOverkursForhoyelse-datadef-22071 orid="22071">1090660.2349058</AksjeOverkursForhoyelse-datadef-22071>
-                           <EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213 orid="28213">string</EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213>
-                           <AksjerNyutstedteNyemisjonMvISIN-datadef-28214 orid="28214">string</AksjerNyutstedteNyemisjonMvISIN-datadef-28214>
-                           <AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215 orid="28215">string</AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215>
-                        </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
+                        {f_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene}
 
-                        <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
-                           <AksjeNyemisjonTidspunkt-datadef-17716 orid="17716">1975-09-14T17:50:42.34</AksjeNyemisjonTidspunkt-datadef-17716>
-                           <EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213 orid="28213">string</EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213>
-                           <AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215 orid="28215">string</AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215>
-                        </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
+                        {f_ForhoyelseAvAKVedOkningAvPalydende3462}
+
+                        {f_ForhoyelseAvAKVedOkningAvPalydende3463} 
+
+                        {f_NedsettelseAvInnbetaltOgFondsemittertAK} 
+
+                        {f_NedsettelseAKVedReduksjonAvPalydende} 
                         
-                        <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
-                           <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713">-1773339.7650942</AksjekapitalNyemisjonForhoyelse-datadef-17713>
-                           <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">-2885339.7650942</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
-                           <AksjePalydendeEtterNyemisjon-datadef-23959 orid="23959">-3528199.7650942</AksjePalydendeEtterNyemisjon-datadef-23959>
-                           <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268">string</AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268>
-                           <AksjeOverkursForhoyelse-datadef-22071 orid="22071">-1367659.7650942</AksjeOverkursForhoyelse-datadef-22071>
-                           <AksjerNyutstedteNyemisjonMvISIN-datadef-28214 orid="28214">string</AksjerNyutstedteNyemisjonMvISIN-datadef-28214>
-                        </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
-                        
-                        <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
-                           <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713">3311070.2349058</AksjekapitalNyemisjonForhoyelse-datadef-17713>
-                           <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">139230.234905804</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
-                           <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268">string</AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268>
-                           <AksjeOverkursForhoyelse-datadef-22071 orid="22071">-1591269.7650942</AksjeOverkursForhoyelse-datadef-22071>
-                           <AksjerNyutstedteNyemisjonMvISIN-datadef-28214 orid="28214">string</AksjerNyutstedteNyemisjonMvISIN-datadef-28214>
-                        </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
-                        
-                        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-                           <AksjekapitalInnbetaltNedsettelse-datadef-17717 orid="17717">2465000.2349058</AksjekapitalInnbetaltNedsettelse-datadef-17717>
-                           <AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961 orid="23961">3626270.2349058</AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961>
-                           <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721">-3552409.7650942</AksjekapitalFondsemittertNedsettelse-datadef-17721>
-                        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-                        
-                        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-                           <AksjePalydendeNedsettelseTapsdekning-datadef-23960 orid="23960">-2554989.7650942</AksjePalydendeNedsettelseTapsdekning-datadef-23960>
-                           <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721">2460800.2349058</AksjekapitalFondsemittertNedsettelse-datadef-17721>
-                        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-                        
-                        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-                           <AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961 orid="23961">-1513579.7650942</AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961>
-                           <AksjeNedsettelseTidspunkt-datadef-17720 orid="17720">2005-05-10T07:47:31.92</AksjeNedsettelseTidspunkt-datadef-17720>
-                        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-                        
-                        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-                           <AksjekapitalInnbetaltNedsettelse-datadef-17717 orid="17717">-272699.765094196</AksjekapitalInnbetaltNedsettelse-datadef-17717>
-                           <AksjePalydendeNedsettelseTapsdekning-datadef-23960 orid="23960">-3831699.7650942</AksjePalydendeNedsettelseTapsdekning-datadef-23960>
-                           <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721">1863480.2349058</AksjekapitalFondsemittertNedsettelse-datadef-17721>
-                        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-                        
-                        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-                           <AksjeNedsettelseTidspunkt-datadef-17720 orid="17720">1973-09-08T11:43:22.33</AksjeNedsettelseTidspunkt-datadef-17720>
-                           <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721">-1021419.7650942</AksjekapitalFondsemittertNedsettelse-datadef-17721>
-                        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-                        
-                        <NedsettelseAKVedReduksjonAvPalydende-grp-3465 gruppeid="3465">
-                           <AksjekapitalUtbetalingNedsettelse-datadef-17722 orid="17722">1158710.2349058</AksjekapitalUtbetalingNedsettelse-datadef-17722>
-                        </NedsettelseAKVedReduksjonAvPalydende-grp-3465>
                         
                         <NedsettelseAKVedReduksjonAvPalydende-grp-3465 gruppeid="3465">
                            <AksjekapitalUtbetalingNedsettelse-datadef-17722 orid="17722">-295749.765094196</AksjekapitalUtbetalingNedsettelse-datadef-17722>
@@ -421,6 +470,8 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
          f_GenerellInformasjon = FillFormData_GenerellInformasjon("911","911","92","","A-Akjse","2022","vikt","rolle","vik@gm","911"),
          f_Selskapsopplysninger = FillFormData_Selskapsopplysninger("1000","190","10","19","19",""),
          f_Utbytte = FillFormData_Utbytte(UtbytteTestData),
+         f_UtstedelseAvAksjerIfmStiftelseNyemisjonMv = FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv("10", "121212", "800", "123", "12"),
+         f_UtstedelseAvAksjerIfmFondsemisjonSplittMv = FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv("10", "22", "Splitt", "121212", "", "800", "123", "12", "A-Aksjer"),
       ).encode("utf-8")
    #print(body)
    #print("\n\n\n\n\n")
@@ -437,6 +488,6 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
       print(re.content)
       #return {False, soup.find("a:message").string}
 
-sendFormData(testUserSocialSecurityNumber, testUserPassword, "54gba", 911007118, testData)
+sendFormData(testUserSocialSecurityNumber, testUserPassword, "tue4u", 911007118, testData)
 
 #sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword)

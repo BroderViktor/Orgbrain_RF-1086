@@ -1,50 +1,20 @@
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-        <SubmitFormTaskBasicResponse xmlns="http://www.altinn.no/services/Intermediary/Shipment/IntermediaryInbound/2009/10">
-            <SubmitFormTaskBasicResult>
-                <ReceiptId>37174064</ReceiptId>
-                <ReceiptText>Form Validation Failed</ReceiptText>
-                <ReceiptHistory>Nov 26 2022  8:03PM - ValidationFailed - Form Validation Failed&#xD;\nNov 26 2022  8:03PM - OK - FormTaskShipment Data is sent to FormTask for Instantiating&#xD;\n</ReceiptHistory>
-                <LastChanged>2022-11-26T20:03:24.953</LastChanged>
-                <ReceiptTypeName>FormTask</ReceiptTypeName>
-                <ReceiptStatusCode>ValidationFailed</ReceiptStatusCode>
-                <ParentReceiptId>0</ParentReceiptId>
-                <References>
-                    <ReferenceBE>
-                        <ReferenceValue>36199</ReferenceValue>
-                        <ReferenceTypeName>ExternalShipmentReference</ReferenceTypeName>
-                        <ReporteeID>0</ReporteeID>
-                    </ReferenceBE>
-                    <ReferenceBE>
-                        <ReferenceValue>911007118</ReferenceValue>
-                        <ReferenceTypeName>OwnerPartyReference</ReferenceTypeName>
-                        <ReporteeID>0</ReporteeID>
-                    </ReferenceBE>
-                    <ReferenceBE>
-                        <ReferenceValue>974761076</ReferenceValue>
-                        <ReferenceTypeName>PartyReference</ReferenceTypeName>
-                        <ReporteeID>0</ReporteeID>
-                    </ReferenceBE>
-                </References>
-                <SubReceipts>
-                    <ReceiptExternalBE>
-                        <ReceiptId>37174065</ReceiptId>
-                        <ReceiptText>&lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;</ReceiptText>
-                        <ReceiptHistory>Nov 26 2022  8:03PM - ValidationFailed - &lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;&#xD;\nNov 26 2022  8:03PM - ValidationFailed - &lt;SchemaValidationError&gt;The element \'Selskap-grp-2588\' has invalid child element \'AksjeTypePreutfylt-datadef-24503\'.&lt;/SchemaValidationError&gt;&#xD;\n</ReceiptHistory>
-                        <LastChanged>2022-11-26T20:03:24.953</LastChanged>
-                        <ReceiptTypeName>FormTask</ReceiptTypeName>
-                        <ReceiptStatusCode>ValidationFailed</ReceiptStatusCode>
-                        <ParentReceiptId>37174064</ParentReceiptId>
-                        <References>
-                            <ReferenceBE>
-                                <ReferenceValue>1</ReferenceValue>
-                                <ReferenceTypeName>SendersReference</ReferenceTypeName>
-                                <ReporteeID>0</ReporteeID>
-                            </ReferenceBE>
-                        </References>
-                    </ReceiptExternalBE>
-                </SubReceipts>
-            </SubmitFormTaskBasicResult>
-        </SubmitFormTaskBasicResponse>
+    <s:Body>
+        <s:Fault>
+            <faultcode>s:Client</faultcode>
+            <faultstring xml:lang="nb-NO">An errror 
+    occurred</faultstring>
+            <detail>
+                <AltinnFault xmlns="http://www.altinn.no/services/common/fault/2009/10" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                    <AltinnErrorMessage>An error occured: Unable to translate bytes [E6] at index 0 from specified code page to Unicode.</AltinnErrorMessage>
+                    <AltinnExtendedErrorMessage>Altinn.Common.Exceptions.AltinnException: Authorization_AuthorizationException ---&gt; System.Text.DecoderFallbackException: Unable to translate bytes [E6] at index 0 from specified code page to Unicode.&#xD;\n   at System.Text.DecoderExceptionFallbackBuffer.Throw(Byte[] bytesUnknown, Int32 index)&#xD;\n   at System.Text.DecoderExceptionFallbackBuffer.Fallback(Byte[] bytesUnknown, Int32 index)&#xD;\n   at System.Text.DecoderFallbackBuffer.InternalFallback(Byte[] bytes, Byte* pBytes, Char*&amp; chars)&#xD;\n   at System.Text.UTF8Encoding.GetChars(Byte* bytes, Int32 byteCount, Char* chars, Int32 charCount, DecoderNLS baseDecoder)&#xD;\n   at System.Text.UTF8Encoding.GetChars(Byte[] bytes, Int32 byteIndex, Int32 byteCount, Char[] chars, Int32 charIndex)&#xD;\n   at System.Xml.ValueHandle.TryReadChars(Char[] chars, Int32 offset, Int32 count, Int32&amp; actual)&#xD;\n   at System.Xml.XmlBaseReader.ReadValueChunk(Char[] chars, Int32 offset, Int32 count)&#xD;\n   at System.Xml.XmlBinaryWriter.WriteTextNode(XmlDictionaryReader reader, Boolean attribute)&#xD;\n   at System.Xml.XmlDictionaryWriter.WriteNode(XmlDictionaryReader reader, Boolean defattr)&#xD;\n   at System.ServiceModel.Channels.ReceivedMessage.OnWriteBodyContents(XmlDictionaryWriter writer)&#xD;\n   at System.ServiceModel.Channels.Message.OnWriteMessage(XmlDictionaryWriter writer)&#xD;\n   at System.ServiceModel.Channels.Message.OnCreateBufferedCopy(Int32 maxBufferSize, XmlDictionaryReaderQuotas quotas)&#xD;\n   at System.ServiceModel.Channels.Message.CreateBufferedCopy(Int32 maxBufferSize)&#xD;\n   at Altinn.SBL.Authentication.ServicePolicyAgent.AuthorizationManagerBodyInternal.CheckAccess(OperationContext operationContext, Message&amp; message) in B:\\agent2\\_work\\10\\s\\SBL\\Authentication\\ServicePolicyAgent\\AuthorizationManagerBody.cs:line 272&#xD;\n   --- End of inner exception stack trace ---</AltinnExtendedErrorMessage>
+                    <AltinnLocalizedErrorMessage>An error occured: Unable to translate bytes [E6] at index 0 from specified code page to Unicode.</AltinnLocalizedErrorMessage>
+                    <ErrorGuid>ce7e0bac-998a-41d1-a563-202991b3d5f9</ErrorGuid>
+                    <ErrorID>0</ErrorID>
+                    <UserGuid>-no value-</UserGuid>
+                    <UserId>0</UserId>
+                </AltinnFault>
+            </detail>
+        </s:Fault>
     </s:Body>
 </s:Envelope>
