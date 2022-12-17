@@ -80,7 +80,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
             <EnhetISINNummer-datadef-17513 orid="17513">{f_ISIN}</EnhetISINNummer-datadef-17513>
             <AksjeType-datadef-17659 orid="17659">{f_AksjeKlasse}</AksjeType-datadef-17659>
             <Inntektsar-datadef-692 orid="692">{f_Intektsår}</Inntektsar-datadef-692>
-            <AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855 orid="34855">{WHAT}</AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855>
+            <AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855 orid="34855">{UkjentFelt}</AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855>
          </Selskap-grp-2588>
          <Kontaktperson-grp-3442 gruppeid="3442">
                <KontaktpersonSkjemaNavn-datadef-33918 orid="33918">{f_AnsvarligNavn}</KontaktpersonSkjemaNavn-datadef-33918>
@@ -89,7 +89,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
                <KontaktpersonSkjemaTelefonnummer-datadef-33916 orid="33916">{f_AnsvarligTlf}</KontaktpersonSkjemaTelefonnummer-datadef-33916>
          </Kontaktperson-grp-3442>
          <AnnenKontaktperson-grp-5384 gruppeid="5384">
-            <KontaktpersonVirksomhetEPost-datadef-28209 orid="28209">{WHAT}</KontaktpersonVirksomhetEPost-datadef-28209>
+            <KontaktpersonVirksomhetEPost-datadef-28209 orid="28209">{UkjentFelt}</KontaktpersonVirksomhetEPost-datadef-28209>
          </AnnenKontaktperson-grp-5384>
       </GenerellInformasjon-grp-2587>
       """.format(
@@ -103,7 +103,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
          f_AnsvarligRolle = AnsvarligRolle,
          f_AnsvarligEpost = AnsvarligEpost,
          f_AnsvarligTlf = AnsvarligTlf,
-         WHAT = "",
+         UkjentFelt = "",
       )
 
 def FillFormData_Selskapsopplysninger(Aksjekapital, KapitalIAksjeklasse, Pålydende, AntallAksjerFjoråret, AntallAksjer, InnbetaltAksjekapital, Overkurs):
@@ -149,7 +149,7 @@ def FillFormData_Selskapsopplysninger(Aksjekapital, KapitalIAksjeklasse, Pålyde
          f_AntallAksjer = AntallAksjer,
          f_InnbetaltAksjekapital = InnbetaltAksjekapital,
          f_Overkurs = Overkurs,
-         WHAT = "",
+         UkjentFelt = "",
       )
 
 def FillFormData_Utbytte(UtbytteData):
@@ -218,9 +218,9 @@ def FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv(Antall, AntallEtter, 
                <EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683 orid="17683">{f_OverdragendeOrgNum}</EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683>
                <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684">{f_OverdragendeOrgISIN}</AksjerNyutstedteFondsemisjonMvISIN-datadef-17684>
                <AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905 orid="19905">{f_OverdragendeOrgAksjeklasse}</AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905>
-               <AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685 orid="17685">{WHAT}</AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685>
+               <AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685 orid="17685">{UkjentFelt}</AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685>
                <AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950 orid="23950">{f_Pålydende}</AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950>
-               <EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687 orid="17687">{WHAT}</EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687>
+               <EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687 orid="17687">{UkjentFelt}</EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687>
             </NyutstedteAksjerOmfordeling-grp-3455>
          </UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454>
       """.format(
@@ -234,7 +234,7 @@ def FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv(Antall, AntallEtter, 
          f_EgneAksjerOverført = EgneAksjerOverført,
          f_OverdragendeOrgNum = OverdragendeOrgNum,
          f_OverdragendeOrgAksjeklasse = OverdragendeOrgAksjeklasse,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall,AntallEtter,PålydendePerAksje,HendelsesType,Tidspunkt,InnbetaltOverkurs,Vederlag):
@@ -259,7 +259,7 @@ def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall,Anta
          f_Tidspunkt = Tidspunkt,
          f_InnbetaltOverkurs = InnbetaltOverkurs,
          f_Vederlag = Vederlag,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(
@@ -307,7 +307,7 @@ def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(
          f_OvertakendeMorSelskapISIN = OvertakendeMorSelskapISIN,
          f_OvertakendeAksjetype = OvertakendeAksjetype,
          f_OvertakendePalydende = OvertakendePalydende,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene(NedsettelseInnbetaltOverkurs, Tidspunkt):
@@ -321,7 +321,7 @@ def FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene(
       """.format(
          f_NedsettelseInnbetaltOverkurs = NedsettelseInnbetaltOverkurs,
          f_Tidspunkt = "Tidspunkt",
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462(Forhøyelse, PålydenePerAksjeFør, PålydenePerAksjeEtter, Tidspunkt):
@@ -339,7 +339,7 @@ def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462(Forhøyelse, PålydenePe
          f_PålydenePerAksjeFør = PålydenePerAksjeFør,
          f_PålydenePerAksjeEtter = PålydenePerAksjeEtter,
          f_Tidspunkt = Tidspunkt,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapital, ØkningIPålydenede, PålydenedeEtter, HendelsesType, Tidspunkt, ForhøyelseAvOverkurs,OrgNummer,ISIN,Aksjeklasse):
@@ -366,7 +366,7 @@ def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapita
          f_OrgNummer = OrgNummer,
          f_ISIN = ISIN,
          f_Aksjeklasse = Aksjeklasse,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK(NedsettekseAvInnbetalt, ReduksjonAvPålydende, PålydendeEtter, Tidspunkt, NedsettelseAvFondsemittert):
@@ -385,7 +385,7 @@ def FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK(NedsettekseAvInnbetalt,
          f_PålydendeEtter = PålydendeEtter,
          f_Tidspunkt = Tidspunkt,
          f_NedsettelseAvFondsemittert = NedsettelseAvFondsemittert,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_NedsettelseAKVedReduksjonAvPalydende(NedsettelseAvAksjekaptial, ReduksjonAvPålydendePerAksje, PålydendeEtter, Tidspunkt):
@@ -402,7 +402,7 @@ def FillFormData_NedsettelseAKVedReduksjonAvPalydende(NedsettelseAvAksjekaptial,
          f_ReduksjonAvPålydendePerAksje = ReduksjonAvPålydendePerAksje,
          f_PålydendeEtter = PålydendeEtter,
          f_Tidspunkt = Tidspunkt,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering(ReduksjonAvPålydendePerAksje, HendelsesType, OvertakendeMorselskapsISIN, PålydendePerVederlagsaksje):
@@ -419,7 +419,7 @@ def FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering(ReduksjonAvPålydendeP
          f_HendelsesType = HendelsesType,
          f_OvertakendeMorselskapsISIN = OvertakendeMorselskapsISIN,
          f_PålydendePerVederlagsaksje = PålydendePerVederlagsaksje,
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 
@@ -657,7 +657,7 @@ def FillFormData_UnderSkjema():
 
       """.format(
 
-         WHAT = "vet ikke",
+         UkjentFelt = "vet ikke",
       )
 
 def sendFormData(username, userpassword, authcode, orgnumber, data):
