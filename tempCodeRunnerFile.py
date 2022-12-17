@@ -1,2 +1,2 @@
 
-                        <ns:DataFormatId>890</ns:DataFormatId>
+                     {f_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon}
