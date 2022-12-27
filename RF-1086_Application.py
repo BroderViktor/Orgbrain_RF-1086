@@ -1,38 +1,45 @@
+
 import requests
 import random
 from bs4 import BeautifulSoup
 
-#Systemusername dont change unless granted new code by altinn
-SystemUserName = "17472"
-#SystemPassword dont change unless granted new password by altinn
+# Systemusername
+#SystemUserName = "17472"
+#SystemUserName = "17477"
+# SystemPassword 
 SystemPassword = "passord1"
 
-#test user
-testUserSocialSecurityNumber = "brasa1"
+# test user (min testbruker)
+#testUserSocialSecurityNumber = "brasa01"
+#testUserPassword = "Tæst123"
+
+# test user (RF-1086 testbrukere)
+testUserSocialSecurityNumber = "brasa001"
 testUserPassword = "Tæst123"
 
 testData = {
    "ISIN": "NO1234567891",
    "Aksjeklasse": "A-aksjer",
-   "Intektsår": "2022",
+   "Inntektsår": "2022",
    "Ansvarlig_Navn": "Viktor",
    "Ansvarlig_Rolle": "Admin",
    "Ansvarlig_Epost": "viktor",
    "Ansvarlig_Tlf": "91639035",
 }
 
-UtbytteTestData = [["utbytte1", "noemer1", "tidspunkt1"], ["utbytte2", "noemer2", "tidspunkt2"]]
+UtbytteTestData = [["utbytte1", "noemer1", "tidspunkt1"],
+                   ["utbytte2", "noemer2", "tidspunkt2"]]
 
-#This function sends an SMS authorization code from altinn to the user
-#Returns a tuple with boolean if the function was a success or not, aswell as an norwegian error message
+# This function sends an SMS authorization code from altinn to the user
+# Returns a tuple with boolean if the function was a success or not, as well as an error message (in Norwegian)
 def sendAuthCodeToUser(username, userpassword):
    headers = {
-   "Accept-Encoding": "gzip,deflate",
-   "Content-Type" : "text/xml;charset=UTF-8",
-   "SOAPAction": "http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10/ISystemAuthenticationExternal/GetAuthenticationChallenge",
-   "Host": "tt02.altinn.no",
-   "Connection": "Keep-Alive",
-   "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
+      "Accept-Encoding": "gzip,deflate",
+      "Content-Type": "text/xml;charset=UTF-8",
+      "SOAPAction": "http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10/ISystemAuthenticationExternal/GetAuthenticationChallenge",
+      "Host": "tt02.altinn.no",
+      "Connection": "Keep-Alive",
+      "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
    }
 
    body = """
@@ -54,22 +61,23 @@ def sendAuthCodeToUser(username, userpassword):
       SystemUserName_Str = SystemUserName, 
       UserSSN_Str = username, 
       UserPassword_Str = userpassword).encode("utf-8")
-   #Posts soap request and stores respons
+   # Posts SOAP request and stores response
    re = requests.post("https://tt02.altinn.no/AuthenticationExternal/SystemAuthentication.svc", data=body, headers=headers)
    
    print(re.content)
    
-   #Uses beautifulSoup to parse the xml return
+   # Uses beautifulSoup to parse the xml return
    soup = BeautifulSoup(re.content, features="html.parser")
-   #Gets Status code
+   # Gets Status code
    responsStatus = soup.find("a:status").string
    if (responsStatus == "Ok"):
       return {True, "Success"}
    else:
       return {False, soup.find("a:message").string}
 
-def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlasse, Intektsår, AnsvarligNavn, AnsvarligRolle, AnsvarligEpost, AnsvarligTlf):
-   #Denne skulle være med men trenger vi den ??? <AksjeTypePreutfylt-datadef-24503 orid="24503"></AksjeTypePreutfylt-datadef-24503>
+
+def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlasse, Inntektsår, AnsvarligNavn, AnsvarligRolle, AnsvarligEpost, AnsvarligTlf):
+   # Denne skulle være med men trenger vi den? <AksjeTypePreutfylt-datadef-24503 orid="24503"></AksjeTypePreutfylt-datadef-24503>
    
    return """
        <GenerellInformasjon-grp-2587 gruppeid="2587">
@@ -79,7 +87,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
             <EnhetPoststed-datadef-6674 orid="6674">{f_Poststed}</EnhetPoststed-datadef-6674>
             <EnhetISINNummer-datadef-17513 orid="17513">{f_ISIN}</EnhetISINNummer-datadef-17513>
             <AksjeType-datadef-17659 orid="17659">{f_AksjeKlasse}</AksjeType-datadef-17659>
-            <Inntektsar-datadef-692 orid="692">{f_Intektsår}</Inntektsar-datadef-692>
+            <Inntektsar-datadef-692 orid="692">{f_Inntektsår}</Inntektsar-datadef-692>
             <AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855 orid="34855">{UkjentFelt}</AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855>
          </Selskap-grp-2588>
          <Kontaktperson-grp-3442 gruppeid="3442">
@@ -97,7 +105,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
          f_PostNummer = PostNum,
          f_Poststed = Poststed,
          f_ISIN = ISIN,
-         f_Intektsår = Intektsår,
+         f_Inntektsår = Inntektsår,
          f_AksjeKlasse = AksjeKlasse,
          f_AnsvarligNavn = AnsvarligNavn,
          f_AnsvarligRolle = AnsvarligRolle,
@@ -105,6 +113,7 @@ def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlass
          f_AnsvarligTlf = AnsvarligTlf,
          UkjentFelt = "",
       )
+
 
 def FillFormData_Selskapsopplysninger(Aksjekapital, KapitalIAksjeklasse, Pålydende, AntallAksjerFjoråret, AntallAksjer, InnbetaltAksjekapital, Overkurs):
    return """
@@ -152,6 +161,7 @@ def FillFormData_Selskapsopplysninger(Aksjekapital, KapitalIAksjeklasse, Pålyde
          UkjentFelt = "",
       )
 
+
 def FillFormData_Utbytte(UtbytteData):
 
 
@@ -180,6 +190,7 @@ def FillFormData_Utbytte(UtbytteData):
          f_UtbytteHendelser = data,
       )
 
+
 def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(AntallNyutstedteAksjer, AntallEtter, Hendelse, Tidspunkt,  Pålydende, Overkurs, EgneAksjerOverført):
 
    return """
@@ -203,6 +214,7 @@ def FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv(AntallNyutstedteAksje
          f_Overkurs = Overkurs,
          f_EgneAksjerOverført = EgneAksjerOverført,
       )
+
 
 def FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv(Antall, AntallEtter, Hendelsestype, Tidspunkt, PålydendePerUtstedtAksje, OverdragendeOrgISIN, Pålydende, EgneAksjerOverført, OverdragendeOrgNum, OverdragendeOrgAksjeklasse):
 
@@ -237,7 +249,8 @@ def FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv(Antall, AntallEtter, 
          UkjentFelt = "vet ikke",
       )
 
-def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall,AntallEtter,PålydendePerAksje,HendelsesType,Tidspunkt,InnbetaltOverkurs,Vederlag):
+
+def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall, AntallEtter, PålydendePerAksje, HendelsesType, Tidspunkt, InnbetaltOverkurs, Vederlag):
 
    return """
       <SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456 gruppeid="3456">
@@ -262,12 +275,13 @@ def FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv(Antall,Anta
          UkjentFelt = "vet ikke",
       )
 
+
 def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(
-   Antall, AntallEtter,Hendelse,Tidspunkt,Pålydende,
-   PålydendeEtterSpleis,OvertakendeSelskapOrgNum,OvertakendeDatterSelskapISIN,
-   OvertakendeSelskapAksjeklasse,Vederlagsaksjer,PålydendePerVederlagsaksjer,
-   Vederlagsaksjer2,OvertakendeSelskapOrgNmr, OvertakendeMorSelskapISIN, 
-   OvertakendeAksjetype,OvertakendePalydende):
+   Antall, AntallEtter, Hendelse, Tidspunkt, Pålydende,
+   PålydendeEtterSpleis, OvertakendeSelskapOrgNum, OvertakendeDatterSelskapISIN,
+   OvertakendeSelskapAksjeklasse, Vederlagsaksjer, PålydendePerVederlagsaksjer,
+   Vederlagsaksjer2, OvertakendeSelskapOrgNr, OvertakendeMorSelskapISIN,
+   OvertakendeAksjetype, OvertakendePalydende):
 
    return """
       <SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458 gruppeid="3458">
@@ -283,7 +297,7 @@ def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(
             <AksjerSlettedeSpleisMvDatterselskapOvertakendeAksjetype-datadef-20375 orid="20375">{f_OvertakendeSelskapAksjeklasse}</AksjerSlettedeSpleisMvDatterselskapOvertakendeAksjetype-datadef-20375>
             <AksjerSlettedeSpleisMvOvertakendeAntall-datadef-17701 orid="17701">{f_Vederlagsaksjer}</AksjerSlettedeSpleisMvOvertakendeAntall-datadef-17701>
             <AksjerSlettedeSpleisMvOvertakendePalydende-datadef-23954 orid="23954">{f_PålydendePerVederlagsaksjer}</AksjerSlettedeSpleisMvOvertakendePalydende-datadef-23954>
-            <EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703 orid="17703">{f_OvertakendeSelskapOrgNmr}</EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703>
+            <EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703 orid="17703">{f_OvertakendeSelskapOrgNr}</EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703>
             <AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704 orid="17704">{f_OvertakendeMorSelskapISIN}</AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704>
             <AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907 orid="19907">{f_OvertakendeAksjetype}</AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907>
             <AksjerSlettedeSpleisMvMorselskapOvertakendeAntall-datadef-17705 orid="17705">{f_Vederlagsaksjer2}</AksjerSlettedeSpleisMvMorselskapOvertakendeAntall-datadef-17705>
@@ -303,12 +317,13 @@ def FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon(
          f_Vederlagsaksjer = Vederlagsaksjer,
          f_PålydendePerVederlagsaksjer = PålydendePerVederlagsaksjer,
          f_Vederlagsaksjer2 = Vederlagsaksjer2,
-         f_OvertakendeSelskapOrgNmr = OvertakendeSelskapOrgNmr,
+         f_OvertakendeSelskapOrgNr = OvertakendeSelskapOrgNr,
          f_OvertakendeMorSelskapISIN = OvertakendeMorSelskapISIN,
          f_OvertakendeAksjetype = OvertakendeAksjetype,
          f_OvertakendePalydende = OvertakendePalydende,
          UkjentFelt = "vet ikke",
       )
+
 
 def FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene(NedsettelseInnbetaltOverkurs, Tidspunkt):
 
@@ -323,6 +338,7 @@ def FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene(
          f_Tidspunkt = "Tidspunkt",
          UkjentFelt = "vet ikke",
       )
+
 
 def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462(Forhøyelse, PålydenePerAksjeFør, PålydenePerAksjeEtter, Tidspunkt):
 
@@ -342,12 +358,13 @@ def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462(Forhøyelse, PålydenePe
          UkjentFelt = "vet ikke",
       )
 
-def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapital, ØkningIPålydenede, PålydenedeEtter, HendelsesType, Tidspunkt, ForhøyelseAvOverkurs,OrgNummer,ISIN,Aksjeklasse):
+
+def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapital, ØkningIPålydende, PålydendeEtter, HendelsesType, Tidspunkt, ForhøyelseAvOverkurs, OrgNummer, ISIN, Aksjeklasse):
 
    return """
       <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
          <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713">{f_ForhøyelseAvAksjeKapital}</AksjekapitalNyemisjonForhoyelse-datadef-17713>
-         <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">{f_ØkningIPålydenede}</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
+         <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958">{f_ØkningIPålydende}</AksjeNyemisjonPalydendeForhoyelse-datadef-23958>
          <AksjePalydendeEtterNyemisjon-datadef-23959 orid="23959">{f_PålydendeEtter}</AksjePalydendeEtterNyemisjon-datadef-23959>
          <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268">{f_HendelsesType}</AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268>
          <AksjeNyemisjonTidspunkt-datadef-17716 orid="17716">{f_Tidspunkt}</AksjeNyemisjonTidspunkt-datadef-17716>
@@ -358,8 +375,8 @@ def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapita
       </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
       """.format(
          f_ForhøyelseAvAksjeKapital = ForhøyelseAvAksjeKapital,
-         f_ØkningIPålydenede = ØkningIPålydenede,
-         f_PålydendeEtter = PålydenedeEtter,
+         f_ØkningIPålydende = ØkningIPålydende,
+         f_PålydendeEtter = PålydendeEtter,
          f_Tidspunkt = Tidspunkt,
          f_HendelsesType = HendelsesType,
          f_ForhøyelseAvOverkurs = ForhøyelseAvOverkurs,
@@ -368,6 +385,7 @@ def FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463(ForhøyelseAvAksjeKapita
          f_Aksjeklasse = Aksjeklasse,
          UkjentFelt = "vet ikke",
       )
+
 
 def FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK(NedsettekseAvInnbetalt, ReduksjonAvPålydende, PålydendeEtter, Tidspunkt, NedsettelseAvFondsemittert):
 
@@ -388,6 +406,7 @@ def FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK(NedsettekseAvInnbetalt,
          UkjentFelt = "vet ikke",
       )
 
+
 def FillFormData_NedsettelseAKVedReduksjonAvPalydende(NedsettelseAvAksjekaptial, ReduksjonAvPålydendePerAksje, PålydendeEtter, Tidspunkt):
 
    return """
@@ -404,6 +423,7 @@ def FillFormData_NedsettelseAKVedReduksjonAvPalydende(NedsettelseAvAksjekaptial,
          f_Tidspunkt = Tidspunkt,
          UkjentFelt = "vet ikke",
       )
+
 
 def FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering(ReduksjonAvPålydendePerAksje, HendelsesType, OvertakendeMorselskapsISIN, PålydendePerVederlagsaksje):
 
@@ -450,6 +470,7 @@ def FillFormData_SelskapsOgAksjonaropplysninger(OrgNummer,Inntektsår,Innsending
       f_AksjonærLandkode = AksjonærLandkode,
    )
 
+
 def FillFormData_AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit( AntallAkjserPerAksjonærFjoråret,AntallAkjserPerAksjonær,UtdeltUtbytte,AntallAkjser,Tidspunkt,Kildeskatt,Transaksjonstype,Beløp,TidspunktTilbakeBetaling):
    return """
       <AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990 gruppeid="3990">
@@ -484,6 +505,7 @@ def FillFormData_AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit( 
       f_TidspunktTilbakeBetaling = TidspunktTilbakeBetaling,
    )
 
+
 def FillFormData_Transaksjoner(TransaksjonType,AvgiversFødselsNummer,AvgiversOrganisasjonsNum):
    return """
       <Transaksjoner-grp-3992 gruppeid="3992">
@@ -501,7 +523,8 @@ def FillFormData_Transaksjoner(TransaksjonType,AvgiversFødselsNummer,AvgiversOr
       f_AvgiversOrganisasjonsNum = AvgiversOrganisasjonsNum,
    )
 
-def FillFormData_FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv(AntallAkjserITilgang,TransaksjonsType,Tidspunkt, OverdragendeOrgNum,OverdragendeISIN,OverdragendeAksjeKlasse,PålydendePerAksje):
+
+def FillFormData_FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv(AntallAkjserITilgang,TransaksjonsType,Tidspunkt, OverdragendeOrgNum, OverdragendeISIN, OverdragendeAksjeKlasse, PålydendePerAksje):
    return """
       <FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994 gruppeid="3994">
          <AntallAksjerITilgangIfmOmfordeling-grp-3999 gruppeid="3999">
@@ -524,6 +547,7 @@ def FillFormData_FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv(Ant
       f_PålydendePerAksje = PålydendePerAksje,
    )
 
+
 def FillFormData_SalgArvGaveLikvidasjonPartiellLikvidasjonMv(AntallAksjerIAvgang,TotaltVederlag):
    return """
       <SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995 gruppeid="3995">
@@ -537,7 +561,8 @@ def FillFormData_SalgArvGaveLikvidasjonPartiellLikvidasjonMv(AntallAksjerIAvgang
       f_TotaltVederlag = TotaltVederlag,
    )
    
-def FillFormData_SpleisSkattefriFusjonOgSkattefriFisjon(AntallAksjerIAvgang,Transaksjonstype,OvertakendeOrgNum,OvertakendeISIN,OvertakendeAksjeKlasse,OvertakendePålydendePerAksje):
+
+def FillFormData_SpleisSkattefriFusjonOgSkattefriFisjon(AntallAksjerIAvgang,Transaksjonstype, OvertakendeOrgNum, OvertakendeISIN, OvertakendeAksjeKlasse, OvertakendePålydendePerAksje):
    return """
       <SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996 gruppeid="3996">
          <AntallAksjerIAvgangVedOmfordeling-grp-4003 gruppeid="4003">
@@ -558,12 +583,13 @@ def FillFormData_SpleisSkattefriFusjonOgSkattefriFisjon(AntallAksjerIAvgang,Tran
       f_OvertakendePålydendePerAksje = OvertakendePålydendePerAksje,
    )
    
+
 def FillFormData_EndringerIAksjekapitalOgOverkurs(
-   NedsettelseAvFondsemittertAksjekapital,ReduksjonAvPålydendePerAksje,
-   OverkursTilbakeBetaling,TilbakeBetalingTidspunkt,ForhøyelseAvOverkurs,
-   ØkningAvPålydendePerAksje,TransaksjonsType,TidspunktAksjeNyemisjon,OverdragendeISIN,
-   ReduksjonAvAksjekapital,TidspunktAksjekapitalReduksjon,OvertakendeSelskapOrgNum,
-   OvertakendeSelskapISIN,OvertakendeSelskapAksjeklasse,):
+   NedsettelseAvFondsemittertAksjekapital, ReduksjonAvPålydendePerAksje,
+   OverkursTilbakeBetaling, TilbakeBetalingTidspunkt, ForhøyelseAvOverkurs,
+   ØkningAvPålydendePerAksje, TransaksjonsType, TidspunktAksjeNyemisjon, OverdragendeISIN,
+   ReduksjonAvAksjekapital, TidspunktAksjekapitalReduksjon, OvertakendeSelskapOrgNum,
+   OvertakendeSelskapISIN, OvertakendeSelskapAksjeklasse,):
    return """
       <EndringerIAksjekapitalOgOverkurs-grp-3997 gruppeid="3997">
 
@@ -645,10 +671,10 @@ def FillFormData_UnderSkjema():
       SelskapsOgAksjonaropplysninger = FillFormData_SelskapsOgAksjonaropplysninger("OrgNum", "Inntektsår", "Innsendingsmåte", "AksjonærIdentifikasjon", "UtenlandskIdent", "Navn", "Poststed", "Landkode"),
       AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit = FillFormData_AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit("AntallAksjerFør", "AntallAksjerNå", "UtdeltUtbytte", "AntallAksjer", "Tidspunkt", "KildeSkatt", "Transaksjonstype", "beløp", "Tidspunkt"),
       Transaksjoner = FillFormData_Transaksjoner("Transaksjonstype", "Fødselsnumr", "OrgNum"),
-      FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv = FillFormData_FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv("AntallAksjerITilgang","Transaksjonstype","Tidspunkt","OrgNum","ISIN","Aksjeklasse","Pålydende"),
-      SalgArvGaveLikvidasjonPartiellLikvidasjonMv = FillFormData_SalgArvGaveLikvidasjonPartiellLikvidasjonMv("AntallAksjerIAvgang","TotaltVederlag"),
+      FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv = FillFormData_FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv("AntallAksjerITilgang", "Transaksjonstype", "Tidspunkt", "OrgNum", "ISIN", "Aksjeklasse", "Pålydende"),
+      SalgArvGaveLikvidasjonPartiellLikvidasjonMv = FillFormData_SalgArvGaveLikvidasjonPartiellLikvidasjonMv("AntallAksjerIAvgang", "TotaltVederlag"),
       SpleisSkattefriFusjonOgSkattefriFisjon = FillFormData_SpleisSkattefriFusjonOgSkattefriFisjon("AntallAksjerIAvgang", "TransaksionsType", "OrgNum", "OvertakendeISIN", "Aksjeklasse", "Pålydende"),
-      EndringerIAksjekapitalOgOverkurs = FillFormData_EndringerIAksjekapitalOgOverkurs("NedsetteleAvAksjeKapital", "ReduksjonAvPålydende", "OVerkurstilbakeBetaling", "TilbakeBetalingTidspunkt", "ForhøyelseAvOverkurs", "ØkningAvPålydende", "TransaksjonsType", "TidspunktAksjeNyem", "OverdragendeISIN", "ReduksjonAvAksjekapital","TidspunktAksjekapitalReduksjon","OvertakendeSelskapOrgNum","ISIN","Aksjeklasse"),
+      EndringerIAksjekapitalOgOverkurs = FillFormData_EndringerIAksjekapitalOgOverkurs("NedsetteleAvAksjeKapital", "ReduksjonAvPålydende", "OverkurstilbakeBetaling", "TilbakeBetalingTidspunkt", "ForhøyelseAvOverkurs", "ØkningAvPålydende", "TransaksjonsType", "TidspunktAksjeNyem", "OverdragendeISIN", "ReduksjonAvAksjekapital", "TidspunktAksjekapitalReduksjon", "OvertakendeSelskapOrgNum", "ISIN", "Aksjeklasse"),
    )
 
 
@@ -659,6 +685,7 @@ def FillFormData_UnderSkjema():
 
          UkjentFelt = "vet ikke",
       )
+
 
 def sendFormData(username, userpassword, authcode, orgnumber, data):
    headers = {
@@ -751,36 +778,83 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
          UserPin_Str = authcode,
          UniqueNumIdentifier = random.randint(0,100000),
          CompanyNumber_Str = orgnumber,
-         f_GenerellInformasjon = FillFormData_GenerellInformasjon("OrgNum","PostNum","Poststed","ISIN","Aksjeklasse","År","AnsvarligNanv","Rolle","Epost","TlfNmr"),
-         f_Selskapsopplysninger = FillFormData_Selskapsopplysninger("AksjeKapital","KapitalIAksjeKlasse","Pålydenede","AntallAksjerFjoråret", "AntallAksjer", "InnbetaltAksjekapital" ,"Overkurs"),
+         #f_GenerellInformasjon = FillFormData_GenerellInformasjon("OrgNum", "PostNum", "Poststed", "ISIN", "Aksjeklasse", "År", "AnsvarligNavn", "Rolle", "Epost", "TlfNr"),
+         f_GenerellInformasjon = FillFormData_GenerellInformasjon("911007118", "0571", "0571", "47ISINNUMMER", "03", "2022", "Viktor", "Admin", "Viktor@gmail.com", "91339542"),
+         #f_Selskapsopplysninger = FillFormData_Selskapsopplysninger("AksjeKapital", "KapitalIAksjeKlasse", "Pålydende", "AntallAksjerFjoråret", "AntallAksjer", "InnbetaltAksjekapital" , "Overkurs"),
+         f_Selskapsopplysninger = FillFormData_Selskapsopplysninger("1000000", "750000", "1000", "750", "750", "100000" , "250000"),
          f_Utbytte = FillFormData_Utbytte(UtbytteTestData),
          f_UtstedelseAvAksjerIfmStiftelseNyemisjonMv = FillFormData_UtstedelseAvAksjerIfmStiftelseNyemisjonMv("Antall", "AntallEtter", "Hendelse", "Tidspunkt", "Pålydende", "Overkurs", "EgneAksjerOverført"),
          f_UtstedelseAvAksjerIfmFondsemisjonSplittMv = FillFormData_UtstedelseAvAksjerIfmFondsemisjonSplittMv("10", "22", "Splitt", "121212", "PålydendePerAkjse", "", "800", "123", "12", "A-Aksjer"),
-         f_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv = FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv("Antall", "AntallEtter", "PålydendePerAkjse","Hendelse", "Tidspunkt", "overkurs", "vederleg"),
-         f_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon = FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon("Antall", "antallEtter", "Hendelse", "Tidspunkt", "Pålydende", "PålydendeEtterSpleis", "OvertakendeSelskapOrgnum","OvertakendeSelskapISIN","Aksjeklasse","Vederlagsaksjer","pålydendeperVederlagsaksjer","Vederlagsaksjer", "OrgNumr", "morSelskapISIN", "AksjeType", "Pålydenede"),
+         f_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv = FillFormData_SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv("Antall", "AntallEtter", "PålydendePerAkjse", "Hendelse", "Tidspunkt", "Overkurs", "Vederlag"),
+         f_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon = FillFormData_SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon("Antall", "antallEtter", "Hendelse", "Tidspunkt", "Pålydende", "PålydendeEtterSpleis", "OvertakendeSelskapOrgnum", "OvertakendeSelskapISIN", "Aksjeklasse", "Vederlagsaksjer", "PålydendeperVederlagsaksjer", "Vederlagsaksjer", "OrgNr", "morSelskapISIN", "AksjeType", "Pålydende"),
          f_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene = FillFormData_NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene("Nedsettelse", "Tidspunkt"),
-         f_ForhoyelseAvAKVedOkningAvPalydende3462 = FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462("Forhøyelse", "PålydenedeFør", "NedsettelseOVerkurs", "Tidspunkt"),
-         f_ForhoyelseAvAKVedOkningAvPalydende3463 = FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463("Forhøyelse", "ØkningPålydeende", "PålydenedeEtter", "Hendelse", "Tidspunkt", "ForhøyelseOverkurs", "OrgNumr", "ISIN", "AksjeKlasse"),
-         f_NedsettelseAvInnbetaltOgFondsemittertAK = FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK("NedsettelseAvInnbetalt", "RedukasjonAvPålydenede", "PålydendeEtter", "Tidspunkt", "NedsettelseAvFondsemmitert"),
-         f_NedsettelseAKVedReduksjonAvPalydende = FillFormData_NedsettelseAKVedReduksjonAvPalydende("NedsettelseAvAksjeKapital", "ReduksjonAvPålydenedePerAksje", "Etter", "Tidspunkt"),
-         f_NedsettelseAvAKVedReduksjonUtfisjonering = FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering("ReduksjonAvPålydenedePerAksje", "Hendelse", "OvertakendeMorISIN", "PålydendePerVederlagsAksje"),
+         f_ForhoyelseAvAKVedOkningAvPalydende3462 = FillFormData_ForhoyelseAvAKVedOkningAvPalydende3462("Forhøyelse", "PålydendeFør", "NedsettelseOverkurs", "Tidspunkt"),
+         f_ForhoyelseAvAKVedOkningAvPalydende3463 = FillFormData_ForhoyelseAvAKVedOkningAvPalydende3463("Forhøyelse", "ØkningPålydeende", "PålydendeEtter", "Hendelse", "Tidspunkt", "ForhøyelseOverkurs", "OrgNr", "ISIN", "AksjeKlasse"),
+         f_NedsettelseAvInnbetaltOgFondsemittertAK = FillFormData_NedsettelseAvInnbetaltOgFondsemittertAK("NedsettelseAvInnbetalt", "RedukasjonAvPålydende", "PålydendeEtter", "Tidspunkt", "NedsettelseAvFondsemittert"),
+         f_NedsettelseAKVedReduksjonAvPalydende = FillFormData_NedsettelseAKVedReduksjonAvPalydende("NedsettelseAvAksjeKapital", "ReduksjonAvPålydendePerAksje", "Etter", "Tidspunkt"),
+         f_NedsettelseAvAKVedReduksjonUtfisjonering = FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering("ReduksjonAvPålydendePerAksje", "Hendelse", "OvertakendeMorISIN", "PålydendePerVederlagsAksje"),
          f_UnderSkjema = FillFormData_UnderSkjema(),
       ).encode("utf-8")
-   #print(body)
-   #print("\n\n\n\n\n")
-   #Posts soap request and stores respons
+   # print(body)
+   # print("\n\n\n\n\n")
+   # Posts SOAP request and stores response
    re = requests.post("https://tt02.altinn.no/IntermediaryExternal/IntermediaryInboundBasic.svc", data=body, headers=headers)
-   print(re.encoding)
-   #Uses beautifulSoup to parse the xml return
-   #soup = BeautifulSoup(re.content)
-   #Gets Status code
-   #responsStatus = soup.find("ReceiptText")
+#   print(re.encoding)
+   # Uses beautifulSoup to parse the xml return
+   # soup = (re.content)
+   # Gets Status code
+   # responsStatus = soup.find("ReceiptText")
    if (False):
       return {True, "Success"}
    else:
-      print(re.content)
-      #return {False, soup.find("a:message").string}
+      print(str(re.content, re.encoding))
+      # return {False, soup.find("a:message").string}
 
-sendFormData(testUserSocialSecurityNumber, testUserPassword, "fg9ve", 911007118, testData)
+
+def GetArchivedForms():
+   body = """
+   <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10" xmlns:ns1="http://schemas.altinn.no/services/Archive/ReporteeArchive/2009/10" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <soapenv:Header/>
+      <soapenv:Body>
+         <ns:GetReporteeElementListBasicV2>
+            <ns:systemUserName>19205</ns:systemUserName>
+            <ns:systemPassword>passord1</ns:systemPassword>
+            <ns:userSSN>brasa010</ns:userSSN>
+            <ns:userPassword>Tæst123</ns:userPassword>
+            <ns:userPinCode>3tdxm</ns:userPinCode>
+            <ns:authMethod>SMSPin</ns:authMethod>
+            <ns:searchBE>
+               <ns1:FromDate>1999-12-22</ns1:FromDate>
+               <ns1:Reportee>213688812</ns1:Reportee>
+               <ns1:SentAndArchived>1</ns1:SentAndArchived>
+               <ns1:ToDate>2222-12-22</ns1:ToDate>
+            </ns:searchBE>
+            <ns:languageID>1033</ns:languageID>
+         </ns:GetReporteeElementListBasicV2>
+      </soapenv:Body>
+   </soapenv:Envelope>
+   """
+   #Get the <a:SEReporteeElementID>16734586</a:SEReporteeElementID> from this request and put it in GetFormData()
+
+def GetFormData():
+   body = """
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10">
+         <soapenv:Header/>
+         <soapenv:Body>
+            <ns:GetFormSetDataBasic>
+               <ns:systemUserName>19205</ns:systemUserName>
+               <ns:systemPassword>passord1</ns:systemPassword>
+               <ns:userSSN>brasa010</ns:userSSN>
+               <ns:userPassword>Tæst123</ns:userPassword>
+               <ns:userPinCode>3tdxm</ns:userPinCode>
+               <ns:authMethod>SMSPin</ns:authMethod>
+               <ns:reporteeElementID>16734586</ns:reporteeElementID>
+               <ns:languageID>1033</ns:languageID>
+            </ns:GetFormSetDataBasic>
+         </soapenv:Body>
+      </soapenv:Envelope>
+   """
+
+sendFormData(testUserSocialSecurityNumber, testUserPassword, "mr5hz", 313051196, testData)
 
 #sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword)
