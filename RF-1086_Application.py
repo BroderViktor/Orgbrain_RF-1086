@@ -1,11 +1,10 @@
 
 import requests
 import random
-from bs4 import BeautifulSoup
+import bs4
 
 # Systemusername
-#SystemUserName = "17472"
-#SystemUserName = "17477"
+SystemUserName = "17472"
 # SystemPassword 
 SystemPassword = "passord1"
 
@@ -14,7 +13,7 @@ SystemPassword = "passord1"
 #testUserPassword = "Tæst123"
 
 # test user (RF-1086 testbrukere)
-testUserSocialSecurityNumber = "brasa001"
+testUserSocialSecurityNumber = "brasa01"
 testUserPassword = "Tæst123"
 
 testData = {
@@ -70,6 +69,7 @@ def sendAuthCodeToUser(username, userpassword):
    soup = BeautifulSoup(re.content, features="html.parser")
    # Gets Status code
    responsStatus = soup.find("a:status").string
+   print(responsStatus)
    if (responsStatus == "Ok"):
       return {True, "Success"}
    else:
@@ -811,50 +811,113 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
       # return {False, soup.find("a:message").string}
 
 
-def GetArchivedForms():
+def GetArchivedForms(username, userpassword, authcode, orgnumber):
+   headers = {
+      "Vary": "Accept-Encoding",
+      "Accept-Encoding": "gzip,deflate",
+      "Content-Type" : "text/xml; charset=utf-8",
+      "SOAPAction": "http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10/IReporteeElementListExternalBasic/GetReporteeElementListBasicV2",
+      "Host": "tt02.altinn.no",
+      "Connection": "Keep-Alive",
+      "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
+   }
+   
    body = """
    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10" xmlns:ns1="http://schemas.altinn.no/services/Archive/ReporteeArchive/2009/10" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
       <soapenv:Header/>
       <soapenv:Body>
          <ns:GetReporteeElementListBasicV2>
-            <ns:systemUserName>19205</ns:systemUserName>
-            <ns:systemPassword>passord1</ns:systemPassword>
-            <ns:userSSN>brasa010</ns:userSSN>
-            <ns:userPassword>Tæst123</ns:userPassword>
-            <ns:userPinCode>3tdxm</ns:userPinCode>
+            <ns:systemUserName>{SystemUserName_Str}</ns:systemUserName>
+            <ns:systemPassword>{SystemPassword_Str}</ns:systemPassword>
+            <ns:userSSN>{UserSSN_Str}</ns:userSSN>
+            <ns:userPassword>{UserPassword_Str}</ns:userPassword>
+            <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
             <ns:authMethod>SMSPin</ns:authMethod>
             <ns:searchBE>
-               <ns1:FromDate>1999-12-22</ns1:FromDate>
-               <ns1:Reportee>213688812</ns1:Reportee>
+               <ns1:FromDate>{f_DateStart}</ns1:FromDate>
+               <ns1:Reportee>{f_OrgNumber}</ns1:Reportee>
                <ns1:SentAndArchived>1</ns1:SentAndArchived>
-               <ns1:ToDate>2222-12-22</ns1:ToDate>
+               <ns1:ToDate>{f_DateEnd}</ns1:ToDate>
             </ns:searchBE>
             <ns:languageID>1033</ns:languageID>
          </ns:GetReporteeElementListBasicV2>
       </soapenv:Body>
    </soapenv:Envelope>
-   """
+   """.format(
+      SystemUserName_Str = SystemUserName, 
+      SystemPassword_Str = SystemPassword, 
+      UserSSN_Str = username, 
+      UserPassword_Str = userpassword,
+      UserPin_Str = authcode,
+      f_DateStart = "1999-12-22",
+      f_DateEnd = "2222-12-22",
+      f_OrgNumber = orgnumber,
+
+   ).encode("utf-8")
+
+   re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
+   
+   print(re.content)
+   
+   # Uses beautifulSoup to parse the xml return
+   soup = bs4.BeautifulSoup(re.content, features="html.parser")
+   # Gets the id of the document
+   responsStatus = soup.find("a:sereporteeelementid").string
+   
+   return [True, responsStatus]
+
    #Get the <a:SEReporteeElementID>16734586</a:SEReporteeElementID> from this request and put it in GetFormData()
 
-def GetFormData():
+def GetFormData(username, userpassword, authcode, elementID):
+   headers = {
+      "Vary": "Accept-Encoding",
+      "Accept-Encoding": "gzip,deflate",
+      "Content-Type" : "text/xml; charset=utf-8",
+      "SOAPAction": "http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10/IReporteeElementListExternalBasic/GetFormSetDataBasic",
+      "Host": "tt02.altinn.no",
+      "Connection": "Keep-Alive",
+      "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
+   }
+
    body = """
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10">
          <soapenv:Header/>
          <soapenv:Body>
             <ns:GetFormSetDataBasic>
-               <ns:systemUserName>19205</ns:systemUserName>
-               <ns:systemPassword>passord1</ns:systemPassword>
-               <ns:userSSN>brasa010</ns:userSSN>
-               <ns:userPassword>Tæst123</ns:userPassword>
-               <ns:userPinCode>3tdxm</ns:userPinCode>
-               <ns:authMethod>SMSPin</ns:authMethod>
-               <ns:reporteeElementID>16734586</ns:reporteeElementID>
-               <ns:languageID>1033</ns:languageID>
+            <ns:systemUserName>{SystemUserName_Str}</ns:systemUserName>
+            <ns:systemPassword>{SystemPassword_Str}</ns:systemPassword>
+            <ns:userSSN>{UserSSN_Str}</ns:userSSN>
+            <ns:userPassword>{UserPassword_Str}</ns:userPassword>
+            <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
+            <ns:authMethod>SMSPin</ns:authMethod>
+            <ns:reporteeElementID>{elementID_Str}</ns:reporteeElementID>
+            <ns:languageID>1033</ns:languageID>
             </ns:GetFormSetDataBasic>
          </soapenv:Body>
       </soapenv:Envelope>
-   """
+   """.format(
+      SystemUserName_Str = SystemUserName,
+      SystemPassword_Str = SystemPassword,
+      UserSSN_Str = username,
+      UserPassword_Str = userpassword,
+      UserPin_Str = authcode,
+      elementID_Str = elementID,
+   ).encode("utf-8")
 
-sendFormData(testUserSocialSecurityNumber, testUserPassword, "mr5hz", 313051196, testData)
+   re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
+   
+   response = re.content.replace(b"&lt;", b"<").replace(b"&gt;", b">")
+   print(response)
+   # Uses beautifulSoup to parse the xml return
+   soup = bs4.BeautifulSoup(response, features="html.parser")
+   # Gets the id of the document
 
+   #responsStatus = soup.find(text=lambda tag: isinstance(tag, bs4.CData)).string.strip()
+   #print(responsStatus)
+   return [True, 123]
+
+#sendFormData(testUserSocialSecurityNumber, testUserPassword, "mr5hz", 911007118, testData)
+
+#GetArchivedForms(testUserSocialSecurityNumber, testUserPassword, "fce34", 911007118)
+print(GetFormData(testUserSocialSecurityNumber, testUserPassword, "fce34", 17158613))
 #sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword)
