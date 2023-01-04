@@ -4,7 +4,8 @@ import random
 import bs4
 
 # Systemusername
-SystemUserName = "17472"
+SystemUserName = "19205"
+#SystemUserName = "17472"
 # SystemPassword 
 SystemPassword = "passord1"
 
@@ -13,8 +14,12 @@ SystemPassword = "passord1"
 #testUserPassword = "Tæst123"
 
 # test user (RF-1086 testbrukere)
-testUserSocialSecurityNumber = "brasa01"
+#testUserSocialSecurityNumber = "brasa01"
+testUserSocialSecurityNumber = "brasa0001"
 testUserPassword = "Tæst123"
+
+AuthCodeType = "AltinnPin"
+#AuthCodeType = "SMSPin"
 
 testData = {
    "ISIN": "NO1234567891",
@@ -47,7 +52,7 @@ def sendAuthCodeToUser(username, userpassword):
       <soapenv:Body>
          <ns:GetAuthenticationChallenge>
             <ns:challengeRequest>
-               <ns1:AuthMethod>SMSPin</ns1:AuthMethod>
+               <ns1:AuthMethod>{f_PinType}</ns1:AuthMethod>
                <ns1:SystemUserName>{SystemUserName_Str}</ns1:SystemUserName>
                <ns1:UserPassword>{UserPassword_Str}</ns1:UserPassword>
                <ns1:UserSSN>{UserSSN_Str}</ns1:UserSSN>
@@ -57,6 +62,7 @@ def sendAuthCodeToUser(username, userpassword):
    </soapenv:Envelope>
 
    """.format(
+      f_PinType = AuthCodeType,
       SystemUserName_Str = SystemUserName, 
       UserSSN_Str = username, 
       UserPassword_Str = userpassword).encode("utf-8")
@@ -66,14 +72,15 @@ def sendAuthCodeToUser(username, userpassword):
    print(re.content)
    
    # Uses beautifulSoup to parse the xml return
-   soup = BeautifulSoup(re.content, features="html.parser")
+   soup = bs4.BeautifulSoup(re.content, features="html.parser")
    # Gets Status code
-   responsStatus = soup.find("a:status").string
-   print(responsStatus)
-   if (responsStatus == "Ok"):
-      return {True, "Success"}
+   if (re.status_code == 200):
+      if (soup.find("a:status").string == "Ok"):
+         return {True, soup.find("a:message").string}
+      else: 
+         return {False, soup.find("a:message").string}
    else:
-      return {False, soup.find("a:message").string}
+      return {False, soup.find("a:altinnerrormessage").string}
 
 
 def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlasse, Inntektsår, AnsvarligNavn, AnsvarligRolle, AnsvarligEpost, AnsvarligTlf):
@@ -707,15 +714,13 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
             <ns:userSSN>{UserSSN_Str}</ns:userSSN>
             <ns:userPassword>{UserPassword_Str}</ns:userPassword>
             <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
-            <ns:authMethod>SMSPin</ns:authMethod>
+            <ns:authMethod>{f_PinType}</ns:authMethod>
             
             <ns:formTaskShipment>
                <ns:Reportee>{CompanyNumber_Str}</ns:Reportee>
                <ns:ExternalShipmentReference>{UniqueNumIdentifier}</ns:ExternalShipmentReference>
                 <ns:FormTasks>
-                <!--<ns:ServiceCode>1166</ns:ServiceCode>
-               <ns:ServiceEdition>181026</ns:ServiceEdition>
--->
+
                <ns:ServiceCode>1051</ns:ServiceCode>
                <ns:ServiceEdition>201010</ns:ServiceEdition>
                <ns:Forms>
@@ -771,6 +776,7 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
    </soapenv:Envelope>
 
    """.format(
+         f_PinType = AuthCodeType,
          SystemUserName_Str = SystemUserName, 
          SystemPassword_Str = SystemPassword, 
          UserSSN_Str = username, 
@@ -795,20 +801,27 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
          f_NedsettelseAvAKVedReduksjonUtfisjonering = FillFormData_NedsettelseAvAKVedReduksjonUtfisjonering("ReduksjonAvPålydendePerAksje", "Hendelse", "OvertakendeMorISIN", "PålydendePerVederlagsAksje"),
          f_UnderSkjema = FillFormData_UnderSkjema(),
       ).encode("utf-8")
-   # print(body)
-   # print("\n\n\n\n\n")
+
    # Posts SOAP request and stores response
    re = requests.post("https://tt02.altinn.no/IntermediaryExternal/IntermediaryInboundBasic.svc", data=body, headers=headers)
-#   print(re.encoding)
+
    # Uses beautifulSoup to parse the xml return
-   # soup = (re.content)
-   # Gets Status code
-   # responsStatus = soup.find("ReceiptText")
-   if (False):
-      return {True, "Success"}
+   soup = bs4.BeautifulSoup(re.content, features="html.parser")
+
+   if (re.status_code == 200):
+      #status message
+      msg = soup.find("receipttext").string
+      if (soup.find("receiptstatuscode").string == "Ok"):
+         #Success
+         return [True, msg]
+      else:
+         #Error on form submission
+         return [False, msg]
+
    else:
-      print(str(re.content, re.encoding))
-      # return {False, soup.find("a:message").string}
+      #Get error msg
+      responsStatus = soup.find("altinnerrormessage").string
+      return [False, responsStatus]
 
 
 def GetArchivedForms(username, userpassword, authcode, orgnumber):
@@ -832,7 +845,7 @@ def GetArchivedForms(username, userpassword, authcode, orgnumber):
             <ns:userSSN>{UserSSN_Str}</ns:userSSN>
             <ns:userPassword>{UserPassword_Str}</ns:userPassword>
             <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
-            <ns:authMethod>SMSPin</ns:authMethod>
+            <ns:authMethod>{f_PinType}</ns:authMethod>
             <ns:searchBE>
                <ns1:FromDate>{f_DateStart}</ns1:FromDate>
                <ns1:Reportee>{f_OrgNumber}</ns1:Reportee>
@@ -844,6 +857,7 @@ def GetArchivedForms(username, userpassword, authcode, orgnumber):
       </soapenv:Body>
    </soapenv:Envelope>
    """.format(
+      f_PinType = AuthCodeType,
       SystemUserName_Str = SystemUserName, 
       SystemPassword_Str = SystemPassword, 
       UserSSN_Str = username, 
@@ -858,15 +872,25 @@ def GetArchivedForms(username, userpassword, authcode, orgnumber):
    re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
    
    print(re.content)
-   
+
    # Uses beautifulSoup to parse the xml return
    soup = bs4.BeautifulSoup(re.content, features="html.parser")
-   # Gets the id of the document
-   responsStatus = soup.find("a:sereporteeelementid").string
-   
-   return [True, responsStatus]
 
-   #Get the <a:SEReporteeElementID>16734586</a:SEReporteeElementID> from this request and put it in GetFormData()
+   #Error handling
+   if (re.status_code == 200):
+      if (soup.find("a:reporteeelementbev2") != None):
+         # Gets the id of the document
+         responsStatus = soup.find("a:sereporteeelementid").string
+         return [True, responsStatus]
+
+      if (soup.find("a:reporteeelementbev2") != None):
+         # Gets the id of the document
+         return [False, "Did not find any previous submissions"]
+   else:
+      #Get error msg
+      responsStatus = soup.find("altinnerrormessage").string
+      return [False, responsStatus]
+
 
 def GetFormData(username, userpassword, authcode, elementID):
    headers = {
@@ -889,13 +913,14 @@ def GetFormData(username, userpassword, authcode, elementID):
             <ns:userSSN>{UserSSN_Str}</ns:userSSN>
             <ns:userPassword>{UserPassword_Str}</ns:userPassword>
             <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
-            <ns:authMethod>SMSPin</ns:authMethod>
+            <ns:authMethod>{f_PinType}</ns:authMethod>
             <ns:reporteeElementID>{elementID_Str}</ns:reporteeElementID>
             <ns:languageID>1033</ns:languageID>
             </ns:GetFormSetDataBasic>
          </soapenv:Body>
       </soapenv:Envelope>
    """.format(
+      f_PinType = AuthCodeType,
       SystemUserName_Str = SystemUserName,
       SystemPassword_Str = SystemPassword,
       UserSSN_Str = username,
@@ -906,18 +931,24 @@ def GetFormData(username, userpassword, authcode, elementID):
 
    re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
    
+   #the return data is formated weirdly, so this is a janky solution to that
    response = re.content.replace(b"&lt;", b"<").replace(b"&gt;", b">")
-   print(response)
+
    # Uses beautifulSoup to parse the xml return
    soup = bs4.BeautifulSoup(response, features="html.parser")
    # Gets the id of the document
+   
+   #Error handling
+   if (re.status_code == 200):
+      return [True, "responsStatus"]
+   else:
+      #Get error msg
+      responsStatus = soup.find("altinnerrormessage").string
+      return [False, responsStatus]
 
-   #responsStatus = soup.find(text=lambda tag: isinstance(tag, bs4.CData)).string.strip()
-   #print(responsStatus)
-   return [True, 123]
+#print(sendFormData(testUserSocialSecurityNumber, testUserPassword, "asdfg", 911007118, testData))
 
-#sendFormData(testUserSocialSecurityNumber, testUserPassword, "mr5hz", 911007118, testData)
+#print(GetArchivedForms(testUserSocialSecurityNumber, testUserPassword, "iuyhs", 213688812))
+#print(GetFormData(testUserSocialSecurityNumber, testUserPassword, "fce34", 17158613))
 
-#GetArchivedForms(testUserSocialSecurityNumber, testUserPassword, "fce34", 911007118)
-print(GetFormData(testUserSocialSecurityNumber, testUserPassword, "fce34", 17158613))
-#sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword)
+#print(sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword))

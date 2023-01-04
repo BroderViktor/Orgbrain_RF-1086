@@ -1,494 +1,71 @@
-<Skjema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:brreg="http://www.brreg.no/or"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsa10="http://www.w3.org/2005/08/addressing"
-    xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
-    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
-    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
-    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
-    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
-    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:i0="http://tempuri.org/"
-    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://www.brreg.no/seres"
-    xmlns:ns3="http://schemas.microsoft.com/2003/10/Serialization/" skjemanummer="890"
-    spesifikasjonsnummer="12144" blankettnummer="RF-1086" tittel="Aksjonærregisteroppgaven"
-    gruppeid="2586" etatid="974761076">
-    <GenerellInformasjon-grp-2587 gruppeid="2587">
-        <Selskap-grp-2588 gruppeid="2588">
-            <EnhetOrganisasjonsnummer-datadef-18 orid="18">213688812</EnhetOrganisasjonsnummer-datadef-18>
-            <EnhetNavn-datadef-1 orid="1">OVERFLØDIG ALLSIDIG TIGER AS</EnhetNavn-datadef-1>
-            <EnhetAdresse-datadef-15 orid="15">c/o Liten Kontingent, Høgbergvegen 24</EnhetAdresse-datadef-15>
-            <EnhetPostnummer-datadef-6673 orid="6673">2436</EnhetPostnummer-datadef-6673>
-            <EnhetPoststed-datadef-6674 orid="6674">VÅLER I SOLØR</EnhetPoststed-datadef-6674>
-            <EnhetISINNummer-datadef-17513 orid="17513" xsi:nil="true" />
-            <AksjeType-datadef-17659 orid="17659">09</AksjeType-datadef-17659>
-            <AksjeTypePreutfylt-datadef-24503 orid="24503" xsi:nil="true" />
-            <Inntektsar-datadef-692 orid="692">2022</Inntektsar-datadef-692>
-            <AksjeLigningsverdi-datadef-35412 orid="35412" xsi:nil="true" />
-            <AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855 orid="34855"
-                xsi:nil="true" />
-        </Selskap-grp-2588>
-        <Kontaktperson-grp-3442 gruppeid="3442">
-            <KontaktpersonSkjemaNavn-datadef-33918 orid="33918" xsi:nil="true" />
-            <KontaktpersonSkjemaRolle-datadef-33915 orid="33915" xsi:nil="true" />
-            <KontaktpersonSkjemaEPost-datadef-30533 orid="30533">carl-hakon.herland@skatteetaten.no</KontaktpersonSkjemaEPost-datadef-30533>
-            <KontaktpersonSkjemaTelefonnummer-datadef-33916 orid="33916" xsi:nil="true" />
-        </Kontaktperson-grp-3442>
-        <AnnenKontaktperson-grp-5384 gruppeid="5384">
-            <KontaktpersonVirksomhetNavn-datadef-15757 orid="15757" xsi:nil="true" />
-            <KontaktpersonRolle-datadef-33917 orid="33917" xsi:nil="true" />
-            <KontaktpersonVirksomhetEPost-datadef-28209 orid="28209" xsi:nil="true" />
-            <KontaktpersonVirksomhetTelefonnummer-datadef-33076 orid="33076" xsi:nil="true" />
-        </AnnenKontaktperson-grp-5384>
-    </GenerellInformasjon-grp-2587>
-    <Selskapsopplysninger-grp-2589 gruppeid="2589">
-        <AksjekapitalForHeleSelskapet-grp-3443 gruppeid="3443">
-            <AksjekapitalFjoraret-datadef-7129 orid="7129">667000.00</AksjekapitalFjoraret-datadef-7129>
-            <Aksjekapital-datadef-87 orid="87">667000.00</Aksjekapital-datadef-87>
-        </AksjekapitalForHeleSelskapet-grp-3443>
-        <AksjekapitalIDenneAksjeklassen-grp-3444 gruppeid="3444">
-            <AksjekapitalISINAksjetypeFjoraret-datadef-17663 orid="17663">333500.00</AksjekapitalISINAksjetypeFjoraret-datadef-17663>
-            <AksjekapitalISINAksjetype-datadef-17664 orid="17664">333500.00</AksjekapitalISINAksjetype-datadef-17664>
-        </AksjekapitalIDenneAksjeklassen-grp-3444>
-        <PalydendePerAksje-grp-3447 gruppeid="3447">
-            <AksjeMvPalydendeFjoraret-datadef-23944 orid="23944">100.000000</AksjeMvPalydendeFjoraret-datadef-23944>
-            <AksjeMvPalydende-datadef-23945 orid="23945">100.000000</AksjeMvPalydende-datadef-23945>
-        </PalydendePerAksje-grp-3447>
-        <AntallAksjerIDenneAksjeklassen-grp-3445 gruppeid="3445">
-            <AksjerMvAntallFjoraret-datadef-29166 orid="29166">3335</AksjerMvAntallFjoraret-datadef-29166>
-            <AksjerMvAntall-datadef-29167 orid="29167">3335</AksjerMvAntall-datadef-29167>
-        </AntallAksjerIDenneAksjeklassen-grp-3445>
-        <InnbetaltAksjekapitalIDenneAksjeklassen-grp-3446 gruppeid="3446">
-            <AksjekapitalInnbetaltFjoraret-datadef-8020 orid="8020">333500.00</AksjekapitalInnbetaltFjoraret-datadef-8020>
-            <AksjekapitalInnbetalt-datadef-5867 orid="5867">333500.00</AksjekapitalInnbetalt-datadef-5867>
-        </InnbetaltAksjekapitalIDenneAksjeklassen-grp-3446>
-        <InnbetaltOverkursIDenneAksjeklassen-grp-3448 gruppeid="3448">
-            <AksjeOverkursISINAksjetypeFjoraret-datadef-17662 orid="17662">0.00</AksjeOverkursISINAksjetypeFjoraret-datadef-17662>
-            <AksjeOverkursISINAksjetype-datadef-17661 orid="17661">0.00</AksjeOverkursISINAksjetype-datadef-17661>
-        </InnbetaltOverkursIDenneAksjeklassen-grp-3448>
-    </Selskapsopplysninger-grp-2589>
-    <Utbytte-grp-3449 gruppeid="3449">
-        <UtdeltSkatterettsligUtbytteILopetAvInntektsaret-grp-3451 gruppeid="3451">
-            <AksjeUtbytteISINAksjetype-datadef-17665 orid="17665" xsi:nil="true" />
-            <AksjeUtbyttePerAksje-datadef-23946 orid="23946" xsi:nil="true" />
-            <AksjeUtbytteHendelsestype-datadef-36564 orid="36564" xsi:nil="true" />
-            <AksjeUtbytteTidspunkt-datadef-17667 orid="17667" xsi:nil="true" />
-        </UtdeltSkatterettsligUtbytteILopetAvInntektsaret-grp-3451>
-    </Utbytte-grp-3449>
-    <UtstedelseAvAksjerIfmStiftelseNyemisjonMv-grp-3452 gruppeid="3452">
-        <AntallNyutstedteAksjer-grp-3453 gruppeid="3453">
-            <AksjerNyutstedteStiftelseMvAntall-datadef-17668 orid="17668" xsi:nil="true" />
-            <AksjerStiftelseMvAntall-datadef-17669 orid="17669" xsi:nil="true" />
-            <AksjerNyutstedteStiftelseMvType-datadef-17670 orid="17670" xsi:nil="true" />
-            <AksjerNyutstedteStiftelseMvTidspunkt-datadef-17671 orid="17671" xsi:nil="true" />
-            <AksjerNyutstedteStiftelseMvPalydende-datadef-23947 orid="23947" xsi:nil="true" />
-            <AksjerNyutstedteStiftelseMvOverkurs-datadef-23948 orid="23948" xsi:nil="true" />
-            <AksjerNyutstedteStiftelseMvOverfortEgneAntall-datadef-17674 orid="17674" xsi:nil="true" />
-        </AntallNyutstedteAksjer-grp-3453>
-    </UtstedelseAvAksjerIfmStiftelseNyemisjonMv-grp-3452>
-    <UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454 gruppeid="3454">
-        <NyutstedteAksjerOmfordeling-grp-3455 gruppeid="3455">
-            <AksjerNyutstedteFondsemisjonMvAntall-datadef-17677 orid="17677" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvAntallEtter-datadef-17678 orid="17678" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvType-datadef-17679 orid="17679" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvTidspunkt-datadef-17680 orid="17680" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvPalydende-datadef-23949 orid="23949" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvEgneOverfortAntall-datadef-17682 orid="17682"
-                xsi:nil="true" />
-            <EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683 orid="17683"
-                xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905 orid="19905" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvInnlosteAntall-datadef-17685 orid="17685" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvInnlostPalydende-datadef-23950 orid="23950"
-                xsi:nil="true" />
-            <EnhetOvertakendeKonsernfusjonKonsernfisjonOrganisasjonnummer-datadef-17687 orid="17687"
-                xsi:nil="true" />
-        </NyutstedteAksjerOmfordeling-grp-3455>
-    </UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454>
-    <SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456 gruppeid="3456">
-        <SlettedeAksjerAvgang-grp-3457 gruppeid="3457">
-            <AksjerSlettedeLikvidasjonMvAntall-datadef-17688 orid="17688" xsi:nil="true" />
-            <AksjerLividasjonMvAntall-datadef-17689 orid="17689" xsi:nil="true" />
-            <AksjerSlettedeLikvidasjonMvPalydende-datadef-23951 orid="23951" xsi:nil="true" />
-            <AksjerSlettedeLikvidasjonMvType-datadef-17691 orid="17691" xsi:nil="true" />
-            <AksjerSlettedeLividasjonMvTidspunkt-datadef-17692 orid="17692" xsi:nil="true" />
-            <AksjerSlettedeLikvidasjonMvInnbetaltOverkurs-datadef-28212 orid="28212" xsi:nil="true" />
-            <AksjerSlettedeLikvidasjonMvVederlag-datadef-17770 orid="17770" xsi:nil="true" />
-        </SlettedeAksjerAvgang-grp-3457>
-    </SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456>
-    <SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458 gruppeid="3458">
-        <SlettedeAksjerOmfordeling-grp-3459 gruppeid="3459">
-            <AksjerSlettedeSpleisMvAntall-datadef-17693 orid="17693" xsi:nil="true" />
-            <AksjerSpleisAntall-datadef-17694 orid="17694" xsi:nil="true" />
-            <AksjerSlettedeSpleisMvType-datadef-17695 orid="17695" xsi:nil="true" />
-            <AksjerSlettedeSpleisMvTidspunkt-datadef-17696 orid="17696" xsi:nil="true" />
-            <AksjerSlettedeFisjonPalydende-datadef-23952 orid="23952" xsi:nil="true" />
-            <AksjerSlettedeSpleisPalydende-datadef-23953 orid="23953" xsi:nil="true" />
-            <EnhetSlettedeSpleisMvDatterselskaovertakendeOrganisasjonsnumm-datadef-20373
-                orid="20373" xsi:nil="true" />
-            <AksjerSlettedeSpleisMvDatterselskapOvertakendeISINType-datadef-20374 orid="20374"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvDatterselskapOvertakendeAksjetype-datadef-20375 orid="20375"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvOvertakendeAntall-datadef-17701 orid="17701" xsi:nil="true" />
-            <AksjerSlettedeSpleisMvOvertakendePalydende-datadef-23954 orid="23954" xsi:nil="true" />
-            <EnhetSlettedeSpleisMvMorselskapOvertakendeOrganisasjonsnumm-datadef-17703 orid="17703"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvMorselskapOvertakendeISINType-datadef-17704 orid="17704"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvMorselskapOvertakendeAksjetype-datadef-19907 orid="19907"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvMorselskapOvertakendeAntall-datadef-17705 orid="17705"
-                xsi:nil="true" />
-            <AksjerSlettedeSpleisMvMorselskapOvertakendePalydende-datadef-23955 orid="23955"
-                xsi:nil="true" />
-        </SlettedeAksjerOmfordeling-grp-3459>
-    </SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458>
-    <EndringerIAksjekapitalOgOverkurs-grp-3460 gruppeid="3460">
-        <NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461 gruppeid="3461">
-            <AksjerOverkursNedsettelse-datadef-17707 orid="17707" xsi:nil="true" />
-            <AksjerOverkursNedsettelseTidspunkt-datadef-17708 orid="17708" xsi:nil="true" />
-        </NedsettelseAvInnbetaltOverkursMedTilbakebetalingTilAksjonarene-grp-3461>
-        <ForhoyelseAvAKVedOkningAvPalydende-grp-3462 gruppeid="3462">
-            <AksjekapitalForhoyelseFondsemisjon-datadef-17709 orid="17709" xsi:nil="true" />
-            <AksjeFondsemisjonPalydendeForhoyelse-datadef-23956 orid="23956" xsi:nil="true" />
-            <AksjePalydendeEtterFondsemisjon-datadef-23957 orid="23957" xsi:nil="true" />
-            <AksjeFondsemisjonTidspunkt-datadef-17712 orid="17712" xsi:nil="true" />
-        </ForhoyelseAvAKVedOkningAvPalydende-grp-3462>
-        <ForhoyelseAvAKVedOkningAvPalydende-grp-3463 gruppeid="3463">
-            <AksjekapitalNyemisjonForhoyelse-datadef-17713 orid="17713" xsi:nil="true" />
-            <AksjeNyemisjonPalydendeForhoyelse-datadef-23958 orid="23958" xsi:nil="true" />
-            <AksjePalydendeEtterNyemisjon-datadef-23959 orid="23959" xsi:nil="true" />
-            <AksjekapitalForhoyelsePalydendeHendelsestype-datadef-28268 orid="28268" xsi:nil="true" />
-            <AksjeNyemisjonTidspunkt-datadef-17716 orid="17716" xsi:nil="true" />
-            <AksjeOverkursForhoyelse-datadef-22071 orid="22071" xsi:nil="true" />
-            <EnhetOverdragendeNyemisjonMvOrganisasjonsnummer-datadef-28213 orid="28213"
-                xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvISIN-datadef-28214 orid="28214" xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvAksjetype-datadef-28215 orid="28215" xsi:nil="true" />
-        </ForhoyelseAvAKVedOkningAvPalydende-grp-3463>
-        <NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464 gruppeid="3464">
-            <AksjekapitalInnbetaltNedsettelse-datadef-17717 orid="17717" xsi:nil="true" />
-            <AksjePalydendeNedsettelseTapsdekning-datadef-23960 orid="23960" xsi:nil="true" />
-            <AksjePalydendeEtterNedsettelseTapsdekning-datadef-23961 orid="23961" xsi:nil="true" />
-            <AksjeNedsettelseTidspunkt-datadef-17720 orid="17720" xsi:nil="true" />
-            <AksjekapitalFondsemittertNedsettelse-datadef-17721 orid="17721" xsi:nil="true" />
-        </NedsettelseAvInnbetaltOgFondsemittertAK-grp-3464>
-        <NedsettelseAKVedReduksjonAvPalydende-grp-3465 gruppeid="3465">
-            <AksjekapitalUtbetalingNedsettelse-datadef-17722 orid="17722" xsi:nil="true" />
-            <AksjePalydendeNedsettelseUtbetaling-datadef-23962 orid="23962" xsi:nil="true" />
-            <AksjePalydendeEtterNedsettelseUtbetaling-datadef-23963 orid="23963" xsi:nil="true" />
-            <AksjeNedsettelseTidspunkt-datadef-17725 orid="17725" xsi:nil="true" />
-        </NedsettelseAKVedReduksjonAvPalydende-grp-3465>
-        <NedsettelseAvAKVedReduksjonUtfisjonering-grp-3466 gruppeid="3466">
-            <AksjekapitalUtfisjoneringNedsettelse-datadef-17726 orid="17726" xsi:nil="true" />
-            <AksjePalydendeNedsettelseUtfisjonering-datadef-23964 orid="23964" xsi:nil="true" />
-            <AksjePalydendeEtterNedsettelseUtfisjonering-datadef-23965 orid="23965" xsi:nil="true" />
-            <AksjeUtfisjoneringHendelsestype-datadef-37825 orid="37825" xsi:nil="true" />
-            <AksjeNedsettelseUtfisjoneringTidspunkt-datadef-17729 orid="17729" xsi:nil="true" />
-            <EnhetOvertakendeOrganisasjonsnummer-datadef-17730 orid="17730" xsi:nil="true" />
-            <EnhetOvertakendeISIN-datadef-17731 orid="17731" xsi:nil="true" />
-            <EnhetOvertakendeAksjetype-datadef-19903 orid="19903" xsi:nil="true" />
-            <AksjerOvertakendeVederlagAntall-datadef-17732 orid="17732" xsi:nil="true" />
-            <AksjerOvertakendeVederlagPalydende-datadef-23966 orid="23966" xsi:nil="true" />
-            <EnhetMorselskapOvertakendeOrganisasjonsnummer-datadef-17734 orid="17734" xsi:nil="true" />
-            <EnhetISINOvertakendeMorselskap-datadef-17735 orid="17735" xsi:nil="true" />
-            <EnhetAksjetypeOvertakendeMorsselskap-datadef-19904 orid="19904" xsi:nil="true" />
-            <AksjerMorselskapOvertakendeVederlagAntall-datadef-17736 orid="17736" xsi:nil="true" />
-            <AksjerMorselskapOvertakendeVederlagPalydende-datadef-23967 orid="23967" xsi:nil="true" />
-        </NedsettelseAvAKVedReduksjonUtfisjonering-grp-3466>
-    </EndringerIAksjekapitalOgOverkurs-grp-3460>
-</Skjema>]]>
-</b:FormData>
-<Skjema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:brreg="http://www.brreg.no/or"
-    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-    xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
-    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:i0="http://tempuri.org/"
-    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
-    xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:ns1="http://www.brreg.no/seres"
-    xmlns:ns4="http://schemas.microsoft.com/2003/10/Serialization/" skjemanummer="923"
-    spesifikasjonsnummer="12232" blankettnummer="RF-1086-U"
-    tittel="Aksjonærregisteroppgaven - underskjema" gruppeid="3983" etatid="974761076">
-    <SelskapsOgAksjonaropplysninger-grp-3987 gruppeid="3987">
-        <Selskapsidentifikasjon-grp-3986 gruppeid="3986">
-            <EnhetOrganisasjonsnummer-datadef-18 orid="18">213688812</EnhetOrganisasjonsnummer-datadef-18>
-            <AksjeType-datadef-17659 orid="17659">09</AksjeType-datadef-17659>
-            <EnhetISINNummer-datadef-17513 orid="17513" xsi:nil="true" />
-            <Inntektsar-datadef-692 orid="692">2022</Inntektsar-datadef-692>
-            <AksjonarregisteroppgaveUnderskjemaInnsendingsmate-datadef-34856 orid="34856"
-                xsi:nil="true" />
-        </Selskapsidentifikasjon-grp-3986>
-        <NorskUtenlandskAksjonar-grp-3988 gruppeid="3988">
-            <AksjonarFodselsnummer-datadef-1156 orid="1156">69850175454</AksjonarFodselsnummer-datadef-1156>
-            <AksjonarOrganisasjonsnummer-datadef-7597 orid="7597" xsi:nil="true" />
-            <AksjonarUtenlandskIdenifikasjonsnummer-datadef-26626 orid="26626" xsi:nil="true" />
-            <AksjonarNavn-datadef-1153 orid="1153">Aksjonær 2</AksjonarNavn-datadef-1153>
-            <AksjonarPostnummer-datadef-7598 orid="7598">4018</AksjonarPostnummer-datadef-7598>
-            <AksjonarPoststed-datadef-7599 orid="7599">STAVANGER</AksjonarPoststed-datadef-7599>
-            <AksjonarLandkode-datadef-17740 orid="17740">NO</AksjonarLandkode-datadef-17740>
-            <Adresse-grp-7722 gruppeid="7722">
-                <AksjonarAdresse-datadef-1154 orid="1154">Gata 2</AksjonarAdresse-datadef-1154>
-            </Adresse-grp-7722>
-        </NorskUtenlandskAksjonar-grp-3988>
-    </SelskapsOgAksjonaropplysninger-grp-3987>
-    <AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990 gruppeid="3990">
-        <AntallAksjerPerAksjonar-grp-3989 gruppeid="3989">
-            <AksjerAntallFjoraret-datadef-29168 orid="29168">1676</AksjerAntallFjoraret-datadef-29168>
-            <AksjonarAksjerAntall-datadef-17741 orid="17741">1676</AksjonarAksjerAntall-datadef-17741>
-        </AntallAksjerPerAksjonar-grp-3989>
-        <UtdeltUtbyttePerAksjonar-grp-3991 gruppeid="3991">
-            <Aksjeutbytte-datadef-29169 orid="29169" xsi:nil="true" />
-            <AksjerUtbytteAntall-datadef-17742 orid="17742" xsi:nil="true" />
-            <AksjerUtbytteTidspunkt-datadef-17769 orid="17769" xsi:nil="true" />
-            <Kildeskatt-datadef-17743 orid="17743" xsi:nil="true" />
-            <AutomatiskMotregningOnskerIkke-datadef-37159 orid="37159" />
-        </UtdeltUtbyttePerAksjonar-grp-3991>
-        <UtdeltUtbytteKildeskatt-grp-9347 gruppeid="9347">
-            <KildeskattLandkode-datadef-17744 orid="17744" xsi:nil="true" />
-            <KildeskattProsent-datadef-2280 orid="2280" xsi:nil="true" />
-        </UtdeltUtbytteKildeskatt-grp-9347>
-        <TilbakebetalingAvTidligereInnbetaltKapital-grp-7633 gruppeid="7633">
-            <TilbakebetalingAvTidligereInnbetaltKapital-grp-7865 gruppeid="7865">
-                <KapitalTidligereInnbetaltTilbakebetaling-datadef-30396 orid="30396" xsi:nil="true" />
-                <KapitalTidligereInnbetaltTilbakebetaltHendelsestype-datadef-36658 orid="36658"
-                    xsi:nil="true" />
-                <KapitalTidligereInnbetaltTilbakebetalingDato-datadef-30397 orid="30397"
-                    xsi:nil="true" />
-            </TilbakebetalingAvTidligereInnbetaltKapital-grp-7865>
-        </TilbakebetalingAvTidligereInnbetaltKapital-grp-7633>
-    </AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990>
-    <Transaksjoner-grp-3992 gruppeid="3992">
-        <KjopArvGaveStiftelseNyemisjonMv-grp-3993 gruppeid="3993">
-            <AntallAksjerITilgang-grp-3998 gruppeid="3998">
-                <AksjerKjopAntall-datadef-12153 orid="12153" xsi:nil="true" />
-                <AksjeErvervType-datadef-17745 orid="17745" xsi:nil="true" />
-                <AksjerErvervsdato-datadef-17746 orid="17746" xsi:nil="true" />
-                <AksjeAnskaffelsesverdi-datadef-17636 orid="17636" xsi:nil="true" />
-                <AksjonarTidligereFodselsnummer-datadef-26530 orid="26530" xsi:nil="true" />
-                <AksjonarTidligereOrganisasjonsnummer-datadef-26531 orid="26531" xsi:nil="true" />
-            </AntallAksjerITilgang-grp-3998>
-        </KjopArvGaveStiftelseNyemisjonMv-grp-3993>
-    </Transaksjoner-grp-3992>
-    <FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994 gruppeid="3994">
-        <AntallAksjerITilgangIfmOmfordeling-grp-3999 gruppeid="3999">
-            <AksjerTilgangFondsemisjonMvAntall-datadef-17748 orid="17748" xsi:nil="true" />
-            <AksjerTilgangFondsemisjonMvType-datadef-17749 orid="17749" xsi:nil="true" />
-            <AksjerTilgangFondsemisjonMvTidspunkt-datadef-17750 orid="17750" xsi:nil="true" />
-            <EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683 orid="17683"
-                xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905 orid="19905" xsi:nil="true" />
-            <AksjerFondsemisjonPalydende-datadef-23968 orid="23968" xsi:nil="true" />
-        </AntallAksjerITilgangIfmOmfordeling-grp-3999>
-    </FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994>
-    <SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995 gruppeid="3995">
-        <AksjerIAvgang-grp-4002 gruppeid="4002">
-            <AksjerArvMvOmsattAntall-datadef-17752 orid="17752" xsi:nil="true" />
-            <AksjerArvMvOmsattType-datadef-17753 orid="17753" xsi:nil="true" />
-            <AksjerArvMvOmsattTidspunkt-datadef-17754 orid="17754" xsi:nil="true" />
-            <AksjerArvMvOmsatt-datadef-17755 orid="17755" xsi:nil="true" />
-            <AksjonarOvertakendeFodselsnummer-datadef-26532 orid="26532" xsi:nil="true" />
-            <AksjonarOvertakendeOrganisasjonsnummer-datadef-26533 orid="26533" xsi:nil="true" />
-        </AksjerIAvgang-grp-4002>
-    </SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995>
-    <SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996 gruppeid="3996">
-        <AntallAksjerIAvgangVedOmfordeling-grp-4003 gruppeid="4003">
-            <AksjerSpleisMvAvgangAntall-datadef-24007 orid="24007" xsi:nil="true" />
-            <AksjerSpleisMvType-datadef-17758 orid="17758" xsi:nil="true" />
-            <AksjerSpleisMvTidspunkt-datadef-17759 orid="17759" xsi:nil="true" />
-            <EnhetOvertakendeFisjonOrganisasjonsnummer-datadef-17699 orid="17699" xsi:nil="true" />
-            <AksjerSpleisMvOvetakendeISIN-datadef-17700 orid="17700" xsi:nil="true" />
-            <AksjerSpleisMvOvertakendeAksjetype-datadef-19906 orid="19906" xsi:nil="true" />
-            <AksjerSpleisMvPalydende-datadef-23969 orid="23969" xsi:nil="true" />
-        </AntallAksjerIAvgangVedOmfordeling-grp-4003>
-    </SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996>
-    <EndringerIAksjekapitalOgOverkurs-grp-3997 gruppeid="3997">
-        <TilbakebetaltInnbetaltOgFondsemittertAKVedReduksjonAvPalydende-grp-4000 gruppeid="4000">
-            <AksjekapitalNedsettelseTilbakebetalt-datadef-17761 orid="17761" xsi:nil="true" />
-            <AksjePalydendeRedusert-datadef-23970 orid="23970" xsi:nil="true" />
-            <AksjeTilbakebetaltTidspunkt-datadef-17763 orid="17763" xsi:nil="true" />
-            <AksjekapitalNedsettelse-datadef-17764 orid="17764" xsi:nil="true" />
-        </TilbakebetaltInnbetaltOgFondsemittertAKVedReduksjonAvPalydende-grp-4000>
-        <TilbakebetaltTidligereInnbetaltOverkursForAksjen-grp-4001 gruppeid="4001">
-            <OverkursTilbakebetalt-datadef-17765 orid="17765" xsi:nil="true" />
-            <OverkursTilbakebetaltTidspunkt-datadef-17766 orid="17766" xsi:nil="true" />
-        </TilbakebetaltTidligereInnbetaltOverkursForAksjen-grp-4001>
-        <ForhoyelseAvInnbetaltAksjekapitalVedOkning-grp-4987 gruppeid="4987">
-            <AksjekapitalNyemisjonForhoyelseAksjonar-datadef-22073 orid="22073" xsi:nil="true" />
-            <AksjeOverkursForhoyelseAksjonar-datadef-22076 orid="22076" xsi:nil="true" />
-            <AksjeNyemisjonPalydendeForhoyelseAksjonar-datadef-23971 orid="23971" xsi:nil="true" />
-            <AksjekapitalNyemisjonForhoyelsePalydendeTransaksjonstype-datadef-28267 orid="28267"
-                xsi:nil="true" />
-            <AksjeNyemisjonTidspunktAksjonar-datadef-22075 orid="22075" xsi:nil="true" />
-            <EnhetOverdragendeNyemisjonMvOrganisasjonsnummerAksjonar-datadef-28216 orid="28216"
-                xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvISINAksjonar-datadef-28217 orid="28217" xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvAksjetypeAksjonar-datadef-28218 orid="28218" xsi:nil="true" />
-        </ForhoyelseAvInnbetaltAksjekapitalVedOkning-grp-4987>
-        <ReduksjonInnbetaltAksjekapital-grp-9857 gruppeid="9857">
-            <AksjekapitalReduksjon-datadef-37826 orid="37826" xsi:nil="true" />
-            <AksjekapitalReduksjonTransaksjonstype-datadef-37827 orid="37827" xsi:nil="true" />
-            <AksjekapitalReduksjonTidspunkt-datadef-37828 orid="37828" xsi:nil="true" />
-            <EnhetOverdragendeKapitalreduksjonOrganisasjonsnummer-datadef-37829 orid="37829"
-                xsi:nil="true" />
-            <AksjerReduksjonISIN-datadef-37830 orid="37830" xsi:nil="true" />
-            <AksjerReduksjonAksjeklasse-datadef-37831 orid="37831" xsi:nil="true" />
-        </ReduksjonInnbetaltAksjekapital-grp-9857>
-    </EndringerIAksjekapitalOgOverkurs-grp-3997>
-</Skjema>]]>
-</b:FormData>
-<Skjema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:brreg="http://www.brreg.no/or"
-    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-    xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
-    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:i0="http://tempuri.org/"
-    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
-    xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:ns1="http://www.brreg.no/seres"
-    xmlns:ns4="http://schemas.microsoft.com/2003/10/Serialization/" skjemanummer="923"
-    spesifikasjonsnummer="12232" blankettnummer="RF-1086-U"
-    tittel="Aksjonærregisteroppgaven - underskjema" gruppeid="3983" etatid="974761076">
-    <SelskapsOgAksjonaropplysninger-grp-3987 gruppeid="3987">
-        <Selskapsidentifikasjon-grp-3986 gruppeid="3986">
-            <EnhetOrganisasjonsnummer-datadef-18 orid="18">213688812</EnhetOrganisasjonsnummer-datadef-18>
-            <AksjeType-datadef-17659 orid="17659">09</AksjeType-datadef-17659>
-            <EnhetISINNummer-datadef-17513 orid="17513" xsi:nil="true" />
-            <Inntektsar-datadef-692 orid="692">2022</Inntektsar-datadef-692>
-            <AksjonarregisteroppgaveUnderskjemaInnsendingsmate-datadef-34856 orid="34856"
-                xsi:nil="true" />
-        </Selskapsidentifikasjon-grp-3986>
-        <NorskUtenlandskAksjonar-grp-3988 gruppeid="3988">
-            <AksjonarFodselsnummer-datadef-1156 orid="1156">10813049304</AksjonarFodselsnummer-datadef-1156>
-            <AksjonarOrganisasjonsnummer-datadef-7597 orid="7597" xsi:nil="true" />
-            <AksjonarUtenlandskIdenifikasjonsnummer-datadef-26626 orid="26626" xsi:nil="true" />
-            <AksjonarNavn-datadef-1153 orid="1153">Aksjonær 1</AksjonarNavn-datadef-1153>
-            <AksjonarPostnummer-datadef-7598 orid="7598">4018</AksjonarPostnummer-datadef-7598>
-            <AksjonarPoststed-datadef-7599 orid="7599">STAVANGER</AksjonarPoststed-datadef-7599>
-            <AksjonarLandkode-datadef-17740 orid="17740">NO</AksjonarLandkode-datadef-17740>
-            <Adresse-grp-7722 gruppeid="7722">
-                <AksjonarAdresse-datadef-1154 orid="1154">Gata 1</AksjonarAdresse-datadef-1154>
-            </Adresse-grp-7722>
-        </NorskUtenlandskAksjonar-grp-3988>
-    </SelskapsOgAksjonaropplysninger-grp-3987>
-    <AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990 gruppeid="3990">
-        <AntallAksjerPerAksjonar-grp-3989 gruppeid="3989">
-            <AksjerAntallFjoraret-datadef-29168 orid="29168">1659</AksjerAntallFjoraret-datadef-29168>
-            <AksjonarAksjerAntall-datadef-17741 orid="17741">1659</AksjonarAksjerAntall-datadef-17741>
-        </AntallAksjerPerAksjonar-grp-3989>
-        <UtdeltUtbyttePerAksjonar-grp-3991 gruppeid="3991">
-            <Aksjeutbytte-datadef-29169 orid="29169" xsi:nil="true" />
-            <AksjerUtbytteAntall-datadef-17742 orid="17742" xsi:nil="true" />
-            <AksjerUtbytteTidspunkt-datadef-17769 orid="17769" xsi:nil="true" />
-            <Kildeskatt-datadef-17743 orid="17743" xsi:nil="true" />
-            <AutomatiskMotregningOnskerIkke-datadef-37159 orid="37159" />
-        </UtdeltUtbyttePerAksjonar-grp-3991>
-        <UtdeltUtbytteKildeskatt-grp-9347 gruppeid="9347">
-            <KildeskattLandkode-datadef-17744 orid="17744" xsi:nil="true" />
-            <KildeskattProsent-datadef-2280 orid="2280" xsi:nil="true" />
-        </UtdeltUtbytteKildeskatt-grp-9347>
-        <TilbakebetalingAvTidligereInnbetaltKapital-grp-7633 gruppeid="7633">
-            <TilbakebetalingAvTidligereInnbetaltKapital-grp-7865 gruppeid="7865">
-                <KapitalTidligereInnbetaltTilbakebetaling-datadef-30396 orid="30396" xsi:nil="true" />
-                <KapitalTidligereInnbetaltTilbakebetaltHendelsestype-datadef-36658 orid="36658"
-                    xsi:nil="true" />
-                <KapitalTidligereInnbetaltTilbakebetalingDato-datadef-30397 orid="30397"
-                    xsi:nil="true" />
-            </TilbakebetalingAvTidligereInnbetaltKapital-grp-7865>
-        </TilbakebetalingAvTidligereInnbetaltKapital-grp-7633>
-    </AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990>
-    <Transaksjoner-grp-3992 gruppeid="3992">
-        <KjopArvGaveStiftelseNyemisjonMv-grp-3993 gruppeid="3993">
-            <AntallAksjerITilgang-grp-3998 gruppeid="3998">
-                <AksjerKjopAntall-datadef-12153 orid="12153" xsi:nil="true" />
-                <AksjeErvervType-datadef-17745 orid="17745" xsi:nil="true" />
-                <AksjerErvervsdato-datadef-17746 orid="17746" xsi:nil="true" />
-                <AksjeAnskaffelsesverdi-datadef-17636 orid="17636" xsi:nil="true" />
-                <AksjonarTidligereFodselsnummer-datadef-26530 orid="26530" xsi:nil="true" />
-                <AksjonarTidligereOrganisasjonsnummer-datadef-26531 orid="26531" xsi:nil="true" />
-            </AntallAksjerITilgang-grp-3998>
-        </KjopArvGaveStiftelseNyemisjonMv-grp-3993>
-    </Transaksjoner-grp-3992>
-    <FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994 gruppeid="3994">
-        <AntallAksjerITilgangIfmOmfordeling-grp-3999 gruppeid="3999">
-            <AksjerTilgangFondsemisjonMvAntall-datadef-17748 orid="17748" xsi:nil="true" />
-            <AksjerTilgangFondsemisjonMvType-datadef-17749 orid="17749" xsi:nil="true" />
-            <AksjerTilgangFondsemisjonMvTidspunkt-datadef-17750 orid="17750" xsi:nil="true" />
-            <EnhetOverdragendeFondsemisjonMvOrganisasjonsnummer-datadef-17683 orid="17683"
-                xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvISIN-datadef-17684 orid="17684" xsi:nil="true" />
-            <AksjerNyutstedteFondsemisjonMvAksjetype-datadef-19905 orid="19905" xsi:nil="true" />
-            <AksjerFondsemisjonPalydende-datadef-23968 orid="23968" xsi:nil="true" />
-        </AntallAksjerITilgangIfmOmfordeling-grp-3999>
-    </FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994>
-    <SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995 gruppeid="3995">
-        <AksjerIAvgang-grp-4002 gruppeid="4002">
-            <AksjerArvMvOmsattAntall-datadef-17752 orid="17752" xsi:nil="true" />
-            <AksjerArvMvOmsattType-datadef-17753 orid="17753" xsi:nil="true" />
-            <AksjerArvMvOmsattTidspunkt-datadef-17754 orid="17754" xsi:nil="true" />
-            <AksjerArvMvOmsatt-datadef-17755 orid="17755" xsi:nil="true" />
-            <AksjonarOvertakendeFodselsnummer-datadef-26532 orid="26532" xsi:nil="true" />
-            <AksjonarOvertakendeOrganisasjonsnummer-datadef-26533 orid="26533" xsi:nil="true" />
-        </AksjerIAvgang-grp-4002>
-    </SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995>
-    <SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996 gruppeid="3996">
-        <AntallAksjerIAvgangVedOmfordeling-grp-4003 gruppeid="4003">
-            <AksjerSpleisMvAvgangAntall-datadef-24007 orid="24007" xsi:nil="true" />
-            <AksjerSpleisMvType-datadef-17758 orid="17758" xsi:nil="true" />
-            <AksjerSpleisMvTidspunkt-datadef-17759 orid="17759" xsi:nil="true" />
-            <EnhetOvertakendeFisjonOrganisasjonsnummer-datadef-17699 orid="17699" xsi:nil="true" />
-            <AksjerSpleisMvOvetakendeISIN-datadef-17700 orid="17700" xsi:nil="true" />
-            <AksjerSpleisMvOvertakendeAksjetype-datadef-19906 orid="19906" xsi:nil="true" />
-            <AksjerSpleisMvPalydende-datadef-23969 orid="23969" xsi:nil="true" />
-        </AntallAksjerIAvgangVedOmfordeling-grp-4003>
-    </SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996>
-    <EndringerIAksjekapitalOgOverkurs-grp-3997 gruppeid="3997">
-        <TilbakebetaltInnbetaltOgFondsemittertAKVedReduksjonAvPalydende-grp-4000 gruppeid="4000">
-            <AksjekapitalNedsettelseTilbakebetalt-datadef-17761 orid="17761" xsi:nil="true" />
-            <AksjePalydendeRedusert-datadef-23970 orid="23970" xsi:nil="true" />
-            <AksjeTilbakebetaltTidspunkt-datadef-17763 orid="17763" xsi:nil="true" />
-            <AksjekapitalNedsettelse-datadef-17764 orid="17764" xsi:nil="true" />
-        </TilbakebetaltInnbetaltOgFondsemittertAKVedReduksjonAvPalydende-grp-4000>
-        <TilbakebetaltTidligereInnbetaltOverkursForAksjen-grp-4001 gruppeid="4001">
-            <OverkursTilbakebetalt-datadef-17765 orid="17765" xsi:nil="true" />
-            <OverkursTilbakebetaltTidspunkt-datadef-17766 orid="17766" xsi:nil="true" />
-        </TilbakebetaltTidligereInnbetaltOverkursForAksjen-grp-4001>
-        <ForhoyelseAvInnbetaltAksjekapitalVedOkning-grp-4987 gruppeid="4987">
-            <AksjekapitalNyemisjonForhoyelseAksjonar-datadef-22073 orid="22073" xsi:nil="true" />
-            <AksjeOverkursForhoyelseAksjonar-datadef-22076 orid="22076" xsi:nil="true" />
-            <AksjeNyemisjonPalydendeForhoyelseAksjonar-datadef-23971 orid="23971" xsi:nil="true" />
-            <AksjekapitalNyemisjonForhoyelsePalydendeTransaksjonstype-datadef-28267 orid="28267"
-                xsi:nil="true" />
-            <AksjeNyemisjonTidspunktAksjonar-datadef-22075 orid="22075" xsi:nil="true" />
-            <EnhetOverdragendeNyemisjonMvOrganisasjonsnummerAksjonar-datadef-28216 orid="28216"
-                xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvISINAksjonar-datadef-28217 orid="28217" xsi:nil="true" />
-            <AksjerNyutstedteNyemisjonMvAksjetypeAksjonar-datadef-28218 orid="28218" xsi:nil="true" />
-        </ForhoyelseAvInnbetaltAksjekapitalVedOkning-grp-4987>
-        <ReduksjonInnbetaltAksjekapital-grp-9857 gruppeid="9857">
-            <AksjekapitalReduksjon-datadef-37826 orid="37826" xsi:nil="true" />
-            <AksjekapitalReduksjonTransaksjonstype-datadef-37827 orid="37827" xsi:nil="true" />
-            <AksjekapitalReduksjonTidspunkt-datadef-37828 orid="37828" xsi:nil="true" />
-            <EnhetOverdragendeKapitalreduksjonOrganisasjonsnummer-datadef-37829 orid="37829"
-                xsi:nil="true" />
-            <AksjerReduksjonISIN-datadef-37830 orid="37830" xsi:nil="true" />
-            <AksjerReduksjonAksjeklasse-datadef-37831 orid="37831" xsi:nil="true" />
-        </ReduksjonInnbetaltAksjekapital-grp-9857>
-    </EndringerIAksjekapitalOgOverkurs-grp-3997>
-</Skjema>]]>
-</b:FormData>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <SubmitFormTaskBasicResponse
+            xmlns="http://www.altinn.no/services/Intermediary/Shipment/IntermediaryInbound/2009/10">
+            <SubmitFormTaskBasicResult>
+                <ReceiptId>37507056</ReceiptId>
+                <ReceiptText>User is not authorized for submital of reporting service on behalf of
+                    reportee: 911007118</ReceiptText>
+                <ReceiptHistory />
+                <LastChanged>2023-01-04T11:00:39.853</LastChanged>
+                <ReceiptTypeName>FormTask</ReceiptTypeName>
+                <ReceiptStatusCode>Rejected</ReceiptStatusCode>
+                <ParentReceiptId>0</ParentReceiptId>
+                <References>
+                    <ReferenceBE>
+                        <ReferenceValue>97677</ReferenceValue>
+                        <ReferenceTypeName>ExternalShipmentReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>10813049304</ReferenceValue>
+                        <ReferenceTypeName>OwnerPartyReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                </References>
+            </SubmitFormTaskBasicResult>
+        </SubmitFormTaskBasicResponse>
+    </s:Body>
+</s:Envelope>
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <SubmitFormTaskBasicResponse
+            xmlns="http://www.altinn.no/services/Intermediary/Shipment/IntermediaryInbound/2009/10">
+            <SubmitFormTaskBasicResult>
+                <ReceiptId>37507105</ReceiptId>
+                <ReceiptText>Successfully Instantiated</ReceiptText>
+                <ReceiptHistory>Jan 4 2023 11:01AM - OK - FormTaskShipment Data is sent to FormTask
+                    for Instantiating&#xD;\n</ReceiptHistory>
+                <LastChanged>2023-01-04T11:01:55.43</LastChanged>
+                <ReceiptTypeName>FormTask</ReceiptTypeName>
+                <ReceiptStatusCode>OK</ReceiptStatusCode>
+                <ParentReceiptId>0</ParentReceiptId>
+                <References>
+                    <ReferenceBE>
+                        <ReferenceValue>2298</ReferenceValue>
+                        <ReferenceTypeName>ExternalShipmentReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>17243693</ReferenceValue>
+                        <ReferenceTypeName>WorkFlowReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>10813049304</ReferenceValue>
+                        <ReferenceTypeName>OwnerPartyReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                    <ReferenceBE>
+                        <ReferenceValue>974761076</ReferenceValue>
+                        <ReferenceTypeName>PartyReference</ReferenceTypeName>
+                        <ReporteeID>0</ReporteeID>
+                    </ReferenceBE>
+                </References>
+            </SubmitFormTaskBasicResult>
+        </SubmitFormTaskBasicResponse>
+    </s:Body>
+</s:Envelope>
