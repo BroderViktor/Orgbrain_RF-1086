@@ -6,4 +6,4 @@ https://www.altinndigital.no/produkter/altinn-api-for-datasystem/tjenesteoversik
 
 First we need to setup the user and a corresponding system in altinn:
 
-Go to the following link to access the testnetwork of altinn https://tt02.altinn.no. Then ![alt text](https://github.com/broderviktor/Orgbrain/main/pictures/login.png?raw=true)
+Go to the following link to access the testnetwork of altinn https://tt02.altinn.no. Then ![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/dea5a14a7fb0f1072d918b38731b2eb9ca113686/pictures/login.png)
