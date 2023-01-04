@@ -4,4 +4,6 @@ To use this program you need a **test user** in altinn, a premade test users can
 
 https://www.altinndigital.no/produkter/altinn-api-for-datasystem/tjenesteoversikt/skatteetaten---ar/nyheter/rf-1086-oppdatering-av-utgavekode-for-test/
 
-First we need to setup the user in altinn, need to create a user, and a system, to interact with altinn.
+First we need to setup the user and a corresponding system in altinn:
+
+Go to the following link to access the testnetwork of altinn https://tt02.altinn.no. Then ![alt text](https://github.com/broderviktor/Orgbrain/main/pictures/login.png?raw=true)
