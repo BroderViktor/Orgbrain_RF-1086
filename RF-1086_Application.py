@@ -4,32 +4,21 @@ import random
 import bs4
 
 # Systemusername
-SystemUserName = "19205"
+SystemUserName = "19215"
 # SystemPassword 
-SystemPassword = "passord1"
+SystemPassword = "systempassord1"
 
 #Testuser username
-testUserUsername = "brasa01"
+testUserUsername = "testbruker424"
 #testuser Password
-testUserPassword = "Tæst123"
+testUserPassword = "testpassord1"
 
 #Which type of login to use, either phone(SMSPin) or letter(AltinnPin)
 AuthCodeType = "AltinnPin"
 #AuthCodeType = "SMSPin"
 
-testData = {
-   "ISIN": "NO1234567891",
-   "Aksjeklasse": "A-aksjer",
-   "Inntektsår": "2022",
-   "Ansvarlig_Navn": "Viktor",
-   "Ansvarlig_Rolle": "Admin",
-   "Ansvarlig_Epost": "viktor",
-   "Ansvarlig_Tlf": "91639035",
-}
-
 UtbytteTestData = [["utbytte1", "noemer1", "tidspunkt1"],
                    ["utbytte2", "noemer2", "tidspunkt2"]]
-
 
 
 def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlasse, Inntektsår, AnsvarligNavn, AnsvarligRolle, AnsvarligEpost, AnsvarligTlf):
@@ -643,7 +632,7 @@ def FillFormData_UnderSkjema():
       )
 
 
-def sendFormData(username, userpassword, authcode, authType, orgnumber, data):
+def sendFormData(username, userpassword, authcode, authType, orgnumber):
    headers = {
       "Vary": "Accept-Encoding",
       "Accept-Encoding": "gzip,deflate",
@@ -932,8 +921,10 @@ def sendAuthCodeToUser(username, userpassword, authType):
    
    # Uses beautifulSoup to parse the xml return
    soup = bs4.BeautifulSoup(re.content, features="html.parser")
-   # Gets Status code
+   
+   # Gets Status code to check if the request is valid
    if (re.status_code == 200):
+      #if the request is valid but contains wrong info
       if (soup.find("a:status").string == "Ok"):
          return {True, soup.find("a:message").string}
       else: 
@@ -947,8 +938,8 @@ def sendAuthCodeToUser(username, userpassword, authType):
 # if you are using AltinnPin, it will provide a number which coresponds to a code on the testusers document.
 print(sendAuthCodeToUser(testUserUsername, testUserPassword, AuthCodeType))
 
-#Make new form in altinn
-#print(sendFormData(testUserUsername, testUserPassword, "codehere", 911007118, testData))
+#Make new form in altinn, this makes a form filled out with dummy data
+#print(sendFormData(testUserUsername, testUserPassword, "codehere", 911007118))
 
 #GetPreviouslySubmittedForms
 #print(GetArchivedForms(testUserUsername, testUserPassword, "codehere", 213688812))
