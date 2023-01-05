@@ -13,6 +13,8 @@ testUserUsername = "testbruker424"
 #testuser Password
 testUserPassword = "testpassord1"
 
+CompanyNumber = 000000000
+
 #Which type of login to use, either phone(SMSPin) or letter(AltinnPin)
 AuthCodeType = "AltinnPin"
 #AuthCodeType = "SMSPin"
@@ -939,10 +941,10 @@ def sendAuthCodeToUser(username, userpassword, authType):
 print(sendAuthCodeToUser(testUserUsername, testUserPassword, AuthCodeType))
 
 #Make new form in altinn, this makes a form filled out with dummy data
-#print(sendFormData(testUserUsername, testUserPassword, "codehere", 911007118))
+#print(sendFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
 
 #GetPreviouslySubmittedForms
-#print(GetArchivedForms(testUserUsername, testUserPassword, "codehere", 213688812))
+#print(GetArchivedForms(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
 
 #Get data of a prevousily submitted form
-#print(GetFormData(testUserUsername, testUserPassword, "codehere", 17158613))
+#print(GetFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))

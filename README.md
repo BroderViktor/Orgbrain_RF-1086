@@ -45,6 +45,14 @@ Once you add the system take note of the password you set and find the system ID
 
 ![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/systemlists.png)
 
+To send a request to altinn you also need the companynumber of the company you are representing, to find this click on the profile icon in the top right, and select any of the companys associated with that user.
+
+![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/compamy.png)
+
+The company number is underlined with red in the picture below, then click on the "innboks" button, this is where you will see the formdata being delivered. 
+
+![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/compamy.png)
+
 Now you can use the program to interact with altinn. To use the program, first at the top of the script, enter the values you setup in altinn.
 
 SystemUsername = ID of the created system,
@@ -55,16 +63,18 @@ TestuserUsername = The name of the user created in Innloggingsinformasjon,
 
 TestuserPassword = The password,
 
+CompanyNumber = company number, 
+
 AuthCodeType = The authorization type you want, you have to connect a phone number to use SMSPin, default is AltinnPin.
 
 ![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/variableSetup.png)
 
 Scroll to the bottom of the script, before running any other function to altinn, run sendAuthCodeToUser, this prints a code to the console which you have to use for all interaction with altinn systems. If you are using AltinnPin, it will provide a number which coresponds to a code on the testusers document. 
 
-Use this code on all future request, example:
-
-sendFormData(testUserUsername, testUserPassword, "codehere", 911007118)
+Use this code on all future requests, example:
+sendFormData(testUserUsername, testUserPassword, "codehere", "CompanyNumber")
 
 ![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/functions.png)
+
 
 
