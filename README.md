@@ -47,11 +47,11 @@ Once you add the system take note of the password you set and find the system ID
 
 To send a request to altinn you also need the companynumber of the company you are representing, to find this click on the profile icon in the top right, and select any of the companys associated with that user.
 
-![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/compamy.png)
+![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/ed70cf1bbad78790cedcbd1ec537134cadb5d458/pictures/company.png)
 
 The company number is underlined with red in the picture below, then click on the "innboks" button, this is where you will see the formdata being delivered. 
 
-![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/6e3af14a7651ebc1d7ea6f905df5ee4d0bd62dc0/pictures/compamy.png)
+![alt text](https://github.com/BroderViktor/Orgbrain_RF-1086/blob/ed70cf1bbad78790cedcbd1ec537134cadb5d458/pictures/innboks.png)
 
 Now you can use the program to interact with altinn. To use the program, first at the top of the script, enter the values you setup in altinn.
 
