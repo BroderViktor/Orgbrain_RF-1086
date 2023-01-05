@@ -5,19 +5,15 @@ import bs4
 
 # Systemusername
 SystemUserName = "19205"
-#SystemUserName = "17472"
 # SystemPassword 
 SystemPassword = "passord1"
 
-# test user (min testbruker)
-#testUserSocialSecurityNumber = "brasa01"
-#testUserPassword = "Tæst123"
-
-# test user (RF-1086 testbrukere)
-#testUserSocialSecurityNumber = "brasa01"
-testUserSocialSecurityNumber = "brasa0001"
+#Testuser username
+testUserUsername = "brasa01"
+#testuser Password
 testUserPassword = "Tæst123"
 
+#Which type of login to use, either phone(SMSPin) or letter(AltinnPin)
 AuthCodeType = "AltinnPin"
 #AuthCodeType = "SMSPin"
 
@@ -34,53 +30,6 @@ testData = {
 UtbytteTestData = [["utbytte1", "noemer1", "tidspunkt1"],
                    ["utbytte2", "noemer2", "tidspunkt2"]]
 
-# This function sends an SMS authorization code from altinn to the user
-# Returns a tuple with boolean if the function was a success or not, as well as an error message (in Norwegian)
-def sendAuthCodeToUser(username, userpassword):
-   headers = {
-      "Accept-Encoding": "gzip,deflate",
-      "Content-Type": "text/xml;charset=UTF-8",
-      "SOAPAction": "http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10/ISystemAuthenticationExternal/GetAuthenticationChallenge",
-      "Host": "tt02.altinn.no",
-      "Connection": "Keep-Alive",
-      "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
-   }
-
-   body = """
-   <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10" xmlns:ns1="http://schemas.altinn.no/services/Authentication/2009/10">
-      <soapenv:Header/>
-      <soapenv:Body>
-         <ns:GetAuthenticationChallenge>
-            <ns:challengeRequest>
-               <ns1:AuthMethod>{f_PinType}</ns1:AuthMethod>
-               <ns1:SystemUserName>{SystemUserName_Str}</ns1:SystemUserName>
-               <ns1:UserPassword>{UserPassword_Str}</ns1:UserPassword>
-               <ns1:UserSSN>{UserSSN_Str}</ns1:UserSSN>
-            </ns:challengeRequest>
-         </ns:GetAuthenticationChallenge>
-      </soapenv:Body>
-   </soapenv:Envelope>
-
-   """.format(
-      f_PinType = AuthCodeType,
-      SystemUserName_Str = SystemUserName, 
-      UserSSN_Str = username, 
-      UserPassword_Str = userpassword).encode("utf-8")
-   # Posts SOAP request and stores response
-   re = requests.post("https://tt02.altinn.no/AuthenticationExternal/SystemAuthentication.svc", data=body, headers=headers)
-   
-   print(re.content)
-   
-   # Uses beautifulSoup to parse the xml return
-   soup = bs4.BeautifulSoup(re.content, features="html.parser")
-   # Gets Status code
-   if (re.status_code == 200):
-      if (soup.find("a:status").string == "Ok"):
-         return {True, soup.find("a:message").string}
-      else: 
-         return {False, soup.find("a:message").string}
-   else:
-      return {False, soup.find("a:altinnerrormessage").string}
 
 
 def FillFormData_GenerellInformasjon(OrgNum, PostNum, Poststed, ISIN, AksjeKlasse, Inntektsår, AnsvarligNavn, AnsvarligRolle, AnsvarligEpost, AnsvarligTlf):
@@ -694,7 +643,7 @@ def FillFormData_UnderSkjema():
       )
 
 
-def sendFormData(username, userpassword, authcode, orgnumber, data):
+def sendFormData(username, userpassword, authcode, authType, orgnumber, data):
    headers = {
       "Vary": "Accept-Encoding",
       "Accept-Encoding": "gzip,deflate",
@@ -776,7 +725,7 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
    </soapenv:Envelope>
 
    """.format(
-         f_PinType = AuthCodeType,
+         f_PinType = authType,
          SystemUserName_Str = SystemUserName, 
          SystemPassword_Str = SystemPassword, 
          UserSSN_Str = username, 
@@ -824,7 +773,7 @@ def sendFormData(username, userpassword, authcode, orgnumber, data):
       return [False, responsStatus]
 
 
-def GetArchivedForms(username, userpassword, authcode, orgnumber):
+def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
    headers = {
       "Vary": "Accept-Encoding",
       "Accept-Encoding": "gzip,deflate",
@@ -857,7 +806,7 @@ def GetArchivedForms(username, userpassword, authcode, orgnumber):
       </soapenv:Body>
    </soapenv:Envelope>
    """.format(
-      f_PinType = AuthCodeType,
+      f_PinType = authType,
       SystemUserName_Str = SystemUserName, 
       SystemPassword_Str = SystemPassword, 
       UserSSN_Str = username, 
@@ -892,7 +841,7 @@ def GetArchivedForms(username, userpassword, authcode, orgnumber):
       return [False, responsStatus]
 
 
-def GetFormData(username, userpassword, authcode, elementID):
+def GetFormData(username, userpassword, authcode, authType, elementID):
    headers = {
       "Vary": "Accept-Encoding",
       "Accept-Encoding": "gzip,deflate",
@@ -920,7 +869,7 @@ def GetFormData(username, userpassword, authcode, elementID):
          </soapenv:Body>
       </soapenv:Envelope>
    """.format(
-      f_PinType = AuthCodeType,
+      f_PinType = authType,
       SystemUserName_Str = SystemUserName,
       SystemPassword_Str = SystemPassword,
       UserSSN_Str = username,
@@ -946,9 +895,63 @@ def GetFormData(username, userpassword, authcode, elementID):
       responsStatus = soup.find("altinnerrormessage").string
       return [False, responsStatus]
 
-#print(sendFormData(testUserSocialSecurityNumber, testUserPassword, "asdfg", 911007118, testData))
+# This function sends an SMS authorization code from altinn to the user
+# Returns a tuple with boolean if the function was a success or not, as well as an error message (in Norwegian)
+def sendAuthCodeToUser(username, userpassword, authType):
+   headers = {
+      "Accept-Encoding": "gzip,deflate",
+      "Content-Type": "text/xml;charset=UTF-8",
+      "SOAPAction": "http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10/ISystemAuthenticationExternal/GetAuthenticationChallenge",
+      "Host": "tt02.altinn.no",
+      "Connection": "Keep-Alive",
+      "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
+   }
 
-#print(GetArchivedForms(testUserSocialSecurityNumber, testUserPassword, "iuyhs", 213688812))
-#print(GetFormData(testUserSocialSecurityNumber, testUserPassword, "fce34", 17158613))
+   body = """
+   <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/Authentication/SystemAuthentication/2009/10" xmlns:ns1="http://schemas.altinn.no/services/Authentication/2009/10">
+      <soapenv:Header/>
+      <soapenv:Body>
+         <ns:GetAuthenticationChallenge>
+            <ns:challengeRequest>
+               <ns1:AuthMethod>{f_PinType}</ns1:AuthMethod>
+               <ns1:SystemUserName>{SystemUserName_Str}</ns1:SystemUserName>
+               <ns1:UserPassword>{UserPassword_Str}</ns1:UserPassword>
+               <ns1:UserSSN>{UserSSN_Str}</ns1:UserSSN>
+            </ns:challengeRequest>
+         </ns:GetAuthenticationChallenge>
+      </soapenv:Body>
+   </soapenv:Envelope>
 
-#print(sendAuthCodeToUser(testUserSocialSecurityNumber, testUserPassword))
+   """.format(
+      f_PinType = authType,
+      SystemUserName_Str = SystemUserName, 
+      UserSSN_Str = username, 
+      UserPassword_Str = userpassword).encode("utf-8")
+   # Posts SOAP request and stores response
+   re = requests.post("https://tt02.altinn.no/AuthenticationExternal/SystemAuthentication.svc", data=body, headers=headers)
+   
+   # Uses beautifulSoup to parse the xml return
+   soup = bs4.BeautifulSoup(re.content, features="html.parser")
+   # Gets Status code
+   if (re.status_code == 200):
+      if (soup.find("a:status").string == "Ok"):
+         return {True, soup.find("a:message").string}
+      else: 
+         return {False, soup.find("a:message").string}
+   else:
+      return {False, soup.find("a:altinnerrormessage").string}
+
+
+#Get Authorization code, 
+# if you are using SMSPin it will provide a code to use in future request, 
+# if you are using AltinnPin, it will provide a number which coresponds to a code on the testusers document.
+print(sendAuthCodeToUser(testUserUsername, testUserPassword, AuthCodeType))
+
+#Make new form in altinn
+#print(sendFormData(testUserUsername, testUserPassword, "codehere", 911007118, testData))
+
+#GetPreviouslySubmittedForms
+#print(GetArchivedForms(testUserUsername, testUserPassword, "codehere", 213688812))
+
+#Get data of a prevousily submitted form
+#print(GetFormData(testUserUsername, testUserPassword, "codehere", 17158613))
