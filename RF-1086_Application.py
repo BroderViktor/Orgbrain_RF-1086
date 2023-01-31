@@ -4,20 +4,20 @@ import random
 import bs4
 
 # Systemusername
-SystemUserName = "19215"
+SystemUserName = "17472"
 # SystemPassword 
 SystemPassword = "systempassord1"
 
 #Testuser username
-testUserUsername = "testbruker424"
+testUserUsername = "brasa01"
 #testuser Password
-testUserPassword = "testpassord1"
+testUserPassword = "Tæst123"
 
-CompanyNumber = 000000000
+CompanyNumber = 911007118
 
 #Which type of login to use, either phone(SMSPin) or letter(AltinnPin)
-AuthCodeType = "AltinnPin"
-#AuthCodeType = "SMSPin"
+#AuthCodeType = "AltinnPin"
+AuthCodeType = "SMSPin"
 
 UtbytteTestData = [["utbytte1", "noemer1", "tidspunkt1"],
                    ["utbytte2", "noemer2", "tidspunkt2"]]
@@ -791,6 +791,9 @@ def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
                <ns1:Reportee>{f_OrgNumber}</ns1:Reportee>
                <ns1:SentAndArchived>1</ns1:SentAndArchived>
                <ns1:ToDate>{f_DateEnd}</ns1:ToDate>
+               <ns1:ServiceCodeList>
+                  <arr:string>1051</arr:string>
+               </ns1:ServiceCodeList>
             </ns:searchBE>
             <ns:languageID>1033</ns:languageID>
          </ns:GetReporteeElementListBasicV2>
@@ -820,7 +823,7 @@ def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
    if (re.status_code == 200):
       if (soup.find("a:reporteeelementbev2") != None):
          # Gets the id of the document
-         responsStatus = soup.find("a:sereporteeelementid").string
+         responsStatus = soup.find("a:archiveid").string
          return [True, responsStatus]
 
       if (soup.find("a:reporteeelementbev2") != None):
@@ -837,28 +840,29 @@ def GetFormData(username, userpassword, authcode, authType, elementID):
       "Vary": "Accept-Encoding",
       "Accept-Encoding": "gzip,deflate",
       "Content-Type" : "text/xml; charset=utf-8",
-      "SOAPAction": "http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10/IReporteeElementListExternalBasic/GetFormSetDataBasic",
+      "SOAPAction": "http://www.altinn.no/services/Archive/ReporteeArchive/2009/10/IReporteeArchiveExternalBasic/GetArchivedFormTaskBasicV2",
       "Host": "tt02.altinn.no",
       "Connection": "Keep-Alive",
       "User-Agent": "Apache-HttpClient/4.5.5 (Java/16.0.1)"
    }
 
    body = """
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/ServiceEngine/ReporteeElementList/2009/10">
-         <soapenv:Header/>
-         <soapenv:Body>
-            <ns:GetFormSetDataBasic>
-            <ns:systemUserName>{SystemUserName_Str}</ns:systemUserName>
-            <ns:systemPassword>{SystemPassword_Str}</ns:systemPassword>
-            <ns:userSSN>{UserSSN_Str}</ns:userSSN>
-            <ns:userPassword>{UserPassword_Str}</ns:userPassword>
-            <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
-            <ns:authMethod>{f_PinType}</ns:authMethod>
-            <ns:reporteeElementID>{elementID_Str}</ns:reporteeElementID>
-            <ns:languageID>1033</ns:languageID>
-            </ns:GetFormSetDataBasic>
-         </soapenv:Body>
-      </soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.altinn.no/services/Archive/ReporteeArchive/2009/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:GetArchivedFormTaskBasicV2>
+         <ns:systemUserName>{SystemUserName_Str}</ns:systemUserName>
+         <ns:systemPassword>{SystemPassword_Str}</ns:systemPassword>
+         <ns:userSSN>{UserSSN_Str}</ns:userSSN>
+         <ns:userPassword>{UserPassword_Str}</ns:userPassword>
+         <ns:userPinCode>{UserPin_Str}</ns:userPinCode>
+         <ns:authMethod>{f_PinType}</ns:authMethod>
+         <ns:reporteeElementId>{elementID_Str}</ns:reporteeElementId>
+         <ns:languageID>1033</ns:languageID>
+      </ns:GetArchivedFormTaskBasicV2>
+   </soapenv:Body>
+</soapenv:Envelope>
    """.format(
       f_PinType = authType,
       SystemUserName_Str = SystemUserName,
@@ -868,19 +872,22 @@ def GetFormData(username, userpassword, authcode, authType, elementID):
       UserPin_Str = authcode,
       elementID_Str = elementID,
    ).encode("utf-8")
-
-   re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
+   re = requests.post("https://tt02.altinn.no/ArchiveExternal/ReporteeArchiveExternalBasic.svc", data=body, headers=headers)
    
    #the return data is formated weirdly, so this is a janky solution to that
    response = re.content.replace(b"&lt;", b"<").replace(b"&gt;", b">")
 
    # Uses beautifulSoup to parse the xml return
    soup = bs4.BeautifulSoup(response, features="html.parser")
-   # Gets the id of the document
-   
+
    #Error handling
    if (re.status_code == 200):
-      return [True, "responsStatus"]
+      #Finds formdata in the respons
+      formData = soup.find("b:formdataxml").string
+      #Makes a new soup from the formdata
+      formSoup = bs4.BeautifulSoup(formData, features="html.parser")
+      #Gets the number of "6 Innbetalt overkurs i denne aksjeklassen"
+      return [True, formSoup.find("aksjeoverkursisinaksjetypefjoraret-datadef-17662").string]
    else:
       #Get error msg
       responsStatus = soup.find("altinnerrormessage").string
@@ -938,13 +945,13 @@ def sendAuthCodeToUser(username, userpassword, authType):
 #Get Authorization code, 
 # if you are using SMSPin it will provide a code to use in future request, 
 # if you are using AltinnPin, it will provide a number which coresponds to a code on the testusers document.
-print(sendAuthCodeToUser(testUserUsername, testUserPassword, AuthCodeType))
+#print(sendAuthCodeToUser(testUserUsername, testUserPassword, AuthCodeType))
 
 #Make new form in altinn, this makes a form filled out with dummy data
 #print(sendFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
 
 #GetPreviouslySubmittedForms
-#print(GetArchivedForms(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
+#print(GetArchivedForms(testUserUsername, testUserPassword, "maf5n", AuthCodeType, CompanyNumber))
 
 #Get data of a prevousily submitted form
-#print(GetFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
+print(GetFormData(testUserUsername, testUserPassword, "ywp4v", AuthCodeType, "13205667"))
