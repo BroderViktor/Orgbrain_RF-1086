@@ -790,10 +790,10 @@ def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
                <ns1:FromDate>{f_DateStart}</ns1:FromDate>
                <ns1:Reportee>{f_OrgNumber}</ns1:Reportee>
                <ns1:SentAndArchived>1</ns1:SentAndArchived>
-               <ns1:ToDate>{f_DateEnd}</ns1:ToDate>
                <ns1:ServiceCodeList>
                   <arr:string>1051</arr:string>
                </ns1:ServiceCodeList>
+               <ns1:ToDate>{f_DateEnd}</ns1:ToDate>
             </ns:searchBE>
             <ns:languageID>1033</ns:languageID>
          </ns:GetReporteeElementListBasicV2>
@@ -806,7 +806,7 @@ def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
       UserSSN_Str = username, 
       UserPassword_Str = userpassword,
       UserPin_Str = authcode,
-      f_DateStart = "1999-12-22",
+      f_DateStart = "2021-12-22",
       f_DateEnd = "2222-12-22",
       f_OrgNumber = orgnumber,
 
@@ -951,7 +951,7 @@ def sendAuthCodeToUser(username, userpassword, authType):
 #print(sendFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
 
 #GetPreviouslySubmittedForms
-#print(GetArchivedForms(testUserUsername, testUserPassword, "maf5n", AuthCodeType, CompanyNumber))
+#print(GetArchivedForms(testUserUsername, testUserPassword, "aahq7", AuthCodeType, CompanyNumber))
 
 #Get data of a prevousily submitted form
-print(GetFormData(testUserUsername, testUserPassword, "ywp4v", AuthCodeType, "13205667"))
+print(GetFormData(testUserUsername, testUserPassword, "aahq7", AuthCodeType, "13031503"))
