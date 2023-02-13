@@ -893,16 +893,18 @@ def GetFormData(username, userpassword, authcode, authType, elementID):
       for formMetaData in formsdata:
          formMetaDataSoup = bs4.BeautifulSoup(str(formMetaData), features="html.parser")
          name = formMetaDataSoup.find("b:formname").string
+         #filter for this kode to get either main form or subform
+         formid = formMetaDataSoup.find("b:dataformatid").string
 
          #Finds formdata in the respons
          formdata = formMetaDataSoup.find("b:formdataxml").string
-         
+
          #Makes a new soup from the formdata
          #formSoup = bs4.BeautifulSoup(str(formdata), features="html.parser")
          #formSoup.find("aksjeoverkursisinaksjetypefjoraret-datadef-17662")
         
          #Gets the number of "6 Innbetalt overkurs i denne aksjeklassen"
-         print("form: ", name, "Data exist? ", formdata != None)
+         print("form: ", name, "formID: ", formid, "Data exist? ", formdata != None)
       return [True, "success"]
    else:
       #Get error msg
