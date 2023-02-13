@@ -1,0 +1,93 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body>
+        <GetArchivedFormTaskBasicV2Response
+            xmlns="http://www.altinn.no/services/Archive/ReporteeArchive/2009/10">
+            <GetArchivedFormTaskBasicV2Result
+                xmlns:a="http://schemas.altinn.no/services/Archive/ReporteeArchive/2010/10"
+                xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <a:ArchiveTaskList>
+                    <a:ArchiveTaskV2>
+                        <a:EndUserSystemID>0</a:EndUserSystemID>
+                        <a:LastChanged>0001-01-01T00:00:00</a:LastChanged>
+                        <a:NumberOfSignaturesAdded>0</a:NumberOfSignaturesAdded>
+                        <a:ProcessStepID_FK>0</a:ProcessStepID_FK>
+                        <a:SentComplete>false</a:SentComplete>
+                        <a:TaskID>0</a:TaskID>
+                        <a:UserDefinedNumberOfSignaturesRequired>0</a:UserDefinedNumberOfSignaturesRequired>
+                        <a:WorkflowReference i:nil="true" />
+                    </a:ArchiveTaskV2>
+                </a:ArchiveTaskList>
+                <a:ArchivedAttachmentList i:nil="true" />
+                <a:ArchivedDateTime>2022-12-28T13:05:10.897</a:ArchivedDateTime>
+                <a:ArchivedFormList
+                    xmlns:b="http://schemas.altinn.no/services/Archive/ReporteeArchive/2009/10">
+                    <b:ArchivedFormBE>
+                        <b:DataFormatId>890</b:DataFormatId>
+                        <b:DataFormatVersion>12144</b:DataFormatVersion>
+                        <b:FormDataXML><![CDATA[<Skjema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:brreg="http://www.brreg.no/or" xmlns:dfs="http://schemas.microsoft.com/office/infopath/2003/dataFormSolution" xmlns:tns="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:q1="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:altinn="www.altinn.no/infopath-extensions" xmlns:q3="http://www.altinn.no/services/common/fault/2009/10" xmlns:q2="http://schemas.altinn.no/serviceengine/formsengine/2009/10" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:i0="http://tempuri.org/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://www.brreg.no/seres" xmlns:ns2="http://www.altinn.no/services/2009/10" xmlns:ns3="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:my="http://schemas.microsoft.com/office/infopath/2003/myXSD/2009-02-19T14:08:14" xmlns:xd="http://schemas.microsoft.com/office/infopath/2003" skjemanummer="890" spesifikasjonsnummer="12144" blankettnummer="RF-1086" tittel="Aksjon\xc3\xa6rregisteroppgaven" gruppeid="2586" etatid="NoAgency" my:viseHjelpeFelt="false" my:visBeregninger="false" my:skjulPosterPrint="true" my:cpAKStr="A-aksjer" my:fjorAaret="2021" my:inntektsAar="2022" my:nesteAar="2023" my:p2_maxAvvikAar_val_07="10" my:skjulTomPostPrint="true" my:SentFromEUSComplete="false" my:SentFromEUS="true" my:DisableSignAndSendButton="true" my:ShowFirstSubformInDropDown="true" my:antallUtbytte="0" my:p9_maxGrense2017_TN="1500000" my:p9_maxGrense2020_TN="5000000"><GenerellInformasjon-grp-2587 gruppeid="2587"><Selskap-grp-2588 gruppeid="2588"><EnhetOrganisasjonsnummer-datadef-18 orid="18">911007118</EnhetOrganisasjonsnummer-datadef-18><EnhetNavn-datadef-1 orid="1">SALTSTRAUMEN OG JELSA</EnhetNavn-datadef-1><EnhetAdresse-datadef-15 orid="15" xsi:nil="true" /><EnhetPostnummer-datadef-6673 orid="6673">0571</EnhetPostnummer-datadef-6673><EnhetPoststed-datadef-6674 orid="6674">0571</EnhetPoststed-datadef-6674><EnhetISINNummer-datadef-17513 orid="17513">47ISINNUMMER</EnhetISINNummer-datadef-17513><AksjeType-datadef-17659 orid="17659">03</AksjeType-datadef-17659><AksjeTypePreutfylt-datadef-24503 orid="24503" xsi:nil="true" /><Inntektsar-datadef-692 orid="692">2022</Inntektsar-datadef-692><AksjeLigningsverdi-datadef-35412 orid="35412" xsi:nil="true" /><AksjonarregisteroppgaveHovedskjemaInnsendingsmate-datadef-34855 orid="34855" xsi:nil="true" /></Selskap-grp-2588><Kontaktperson-grp-3442 gruppeid="3442"><KontaktpersonSkjemaNavn-datadef-33918 orid="33918">Viktor</KontaktpersonSkjemaNavn-datadef-33918><KontaktpersonSkjemaRolle-datadef-33915 orid="33915">Admin</KontaktpersonSkjemaRolle-datadef-33915><KontaktpersonSkjemaEPost-datadef-30533 orid="30533">Viktor@gmail.com</KontaktpersonSkjemaEPost-datadef-30533><KontaktpersonSkjemaTelefonnummer-datadef-33916 orid="33916">91339542</KontaktpersonSkjemaTelefonnummer-datadef-33916></Kontaktperson-grp-3442><AnnenKontaktperson-grp-5384 gruppeid="5384"><KontaktpersonVirksomhetNavn-datadef-15757 orid="15757" xsi:nil="true" /><KontaktpersonRolle-datadef-33917 orid="33917" xsi:nil="true" /><KontaktpersonVirksomhetEPost-datadef-28209 orid="28209" xsi:nil="true" /><KontaktpersonVirksomhetTelefonnummer-datadef-33076 orid="33076" xsi:nil="true" /></AnnenKontaktperson-grp-5384></GenerellInformasjon-grp-2587><Selskapsopplysninger-grp-2589 gruppeid="2589"><AksjekapitalForHeleSelskapet-grp-3443 gruppeid="3443"><AksjekapitalFjoraret-datadef-7129 orid="7129">1000000</AksjekapitalFjoraret-datadef-7129><Aksjekapital-datadef-87 orid="87">1000000</Aksjekapital-datadef-87></AksjekapitalForHeleSelskapet-grp-3443><AksjekapitalIDenneAksjeklassen-grp-3444 gruppeid="3444"><AksjekapitalISINAksjetypeFjoraret-datadef-17663 orid="17663">750000</AksjekapitalISINAksjetypeFjoraret-datadef-17663><AksjekapitalISINAksjetype-datadef-17664 orid="17664">750000</AksjekapitalISINAksjetype-datadef-17664></AksjekapitalIDenneAksjeklassen-grp-3444><PalydendePerAksje-grp-3447 gruppeid="3447"><AksjeMvPalydendeFjoraret-datadef-23944 orid="23944">1000</AksjeMvPalydendeFjoraret-datadef-23944><AksjeMvPalydende-datadef-23945 orid="23945">1000</AksjeMvPalydende-datadef-23945></PalydendePerAksje-grp-3447><AntallAksjerIDenneAksjeklassen-grp-3445 gruppeid="3445"><AksjerMvAntallFjoraret-datadef-29166 orid="29166">750</AksjerMvAntallFjoraret-datadef-29166><AksjerMvAntall-datadef-29167 orid="29167">750</AksjerMvAntall-datadef-29167></AntallAksjerIDenneAksjeklassen-grp-3445><InnbetaltAksjekapitalIDenneAksjeklassen-grp-3446 gruppeid="3446"><AksjekapitalInnbetaltFjoraret-datadef-8020 orid="8020">100000</AksjekapitalInnbetaltFjoraret-datadef-8020><AksjekapitalInnbetalt-datadef-5867 orid="5867">100000</AksjekapitalInnbetalt-datadef-5867></InnbetaltAksjekapitalIDenneAksjeklassen-grp-3446><InnbetaltOverkursIDenneAksjeklassen-grp-3448 gruppeid="3448"><AksjeOverkursISINAksjetypeFjoraret-datadef-17662 orid="17662">250000</AksjeOverkursISINAksjetypeFjoraret-datadef-17662><AksjeOverkursISINAksjetype-datadef-17661 orid="17661">250000</AksjeOverkursISINAksjetype-datadef-17661></InnbetaltOverkursIDenneAksjeklassen-grp-3448></Selskapsopplysninger-grp-2589><Utbytte-grp-3449 gruppeid="3449" /><UtstedelseAvAksjerIfmStiftelseNyemisjonMv-grp-3452 gruppeid="3452" /><UtstedelseAvAksjerIfmFondsemisjonSplittMv-grp-3454 gruppeid="3454" /><SlettingAvAksjerIfmLikvidasjonPartiellLikvidasjonMv-grp-3456 gruppeid="3456" /><SlettingAvAksjerIfmSpleisSkattefriFusjonFisjon-grp-3458 gruppeid="3458" /><EndringerIAksjekapitalOgOverkurs-grp-3460 gruppeid="3460" /></Skjema>]]></b:FormDataXML>
+                        <b:FormID>4590359</b:FormID>
+                        <b:FormName>RF-1086 Aksjon\xc3\xa6rregisteroppgaven</b:FormName>
+                        <b:FormPaymentInfo />
+                        <b:FormPresentationFieldValue>, 2022, 911007118, A-aksjer</b:FormPresentationFieldValue>
+                        <b:FormSummary i:nil="true" />
+                        <b:ParentReference>0</b:ParentReference>
+                        <b:PaymentInformationE2B i:nil="true" />
+                        <b:PaymentInformationHTML i:nil="true" />
+                    </b:ArchivedFormBE>
+                    <b:ArchivedFormBE>
+                        <b:DataFormatId>923</b:DataFormatId>
+                        <b:DataFormatVersion>12232</b:DataFormatVersion>
+                        <b:FormDataXML><![CDATA[<Skjema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:brreg="http://www.brreg.no/or" xmlns:dfs="http://schemas.microsoft.com/office/infopath/2003/dataFormSolution" xmlns:tns="http://www.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:q1="http://schemas.altinn.no/services/ServiceEngine/ServiceMetaData/2009/10" xmlns:q3="http://www.altinn.no/services/common/fault/2009/10" xmlns:q2="http://schemas.altinn.no/serviceengine/formsengine/2009/10" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:i0="http://tempuri.org/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:ns1="http://www.brreg.no/seres" xmlns:ns4="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:ns3="http://www.altinn.no/services/2009/10" xmlns:my="http://schemas.microsoft.com/office/infopath/2003/myXSD/2009-04-14T09:18:34" xmlns:xd="http://schemas.microsoft.com/office/infopath/2003" skjemanummer="923" spesifikasjonsnummer="12232" blankettnummer="RF-1086-U" tittel="Aksjon\xc3\xa6rregisteroppgaven - underskjema" gruppeid="3983" etatid="NoAgency" my:viseHjelpefelt="false" my:visBeregninger="false" my:skjulPosterPrint="true" my:skjulTomPostPrint="false" my:ValidateMainForm="false" my:DisableSignAndSendButton="true"><SelskapsOgAksjonaropplysninger-grp-3987 gruppeid="3987"><Selskapsidentifikasjon-grp-3986 gruppeid="3986"><EnhetOrganisasjonsnummer-datadef-18 orid="18">911007118</EnhetOrganisasjonsnummer-datadef-18><AksjeType-datadef-17659 orid="17659">03</AksjeType-datadef-17659><EnhetISINNummer-datadef-17513 orid="17513">47ISINNUMMER</EnhetISINNummer-datadef-17513><Inntektsar-datadef-692 orid="692">2022</Inntektsar-datadef-692><AksjonarregisteroppgaveUnderskjemaInnsendingsmate-datadef-34856 orid="34856">Innsendingsm\xc3\xa5te</AksjonarregisteroppgaveUnderskjemaInnsendingsmate-datadef-34856></Selskapsidentifikasjon-grp-3986><NorskUtenlandskAksjonar-grp-3988 gruppeid="3988"><AksjonarFodselsnummer-datadef-1156 orid="1156">07074401621</AksjonarFodselsnummer-datadef-1156><AksjonarOrganisasjonsnummer-datadef-7597 orid="7597" xsi:nil="true" /><AksjonarUtenlandskIdenifikasjonsnummer-datadef-26626 orid="26626" xsi:nil="true" /><AksjonarNavn-datadef-1153 orid="1153">Akjs\xc3\xb8n\xc3\xa6r 11</AksjonarNavn-datadef-1153><AksjonarPostnummer-datadef-7598 orid="7598">0444</AksjonarPostnummer-datadef-7598><AksjonarPoststed-datadef-7599 orid="7599">Sted</AksjonarPoststed-datadef-7599><AksjonarLandkode-datadef-17740 orid="17740">NO</AksjonarLandkode-datadef-17740><Adresse-grp-7722 gruppeid="7722"><AksjonarAdresse-datadef-1154 orid="1154">Vei 45</AksjonarAdresse-datadef-1154></Adresse-grp-7722></NorskUtenlandskAksjonar-grp-3988></SelskapsOgAksjonaropplysninger-grp-3987><AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990 gruppeid="3990"><AntallAksjerPerAksjonar-grp-3989 gruppeid="3989"><AksjerAntallFjoraret-datadef-29168 orid="29168">750</AksjerAntallFjoraret-datadef-29168><AksjonarAksjerAntall-datadef-17741 orid="17741">750</AksjonarAksjerAntall-datadef-17741></AntallAksjerPerAksjonar-grp-3989><UtdeltUtbytteKildeskatt-grp-9347 gruppeid="9347"><KildeskattLandkode-datadef-17744 orid="17744" xsi:nil="true" /><KildeskattProsent-datadef-2280 orid="2280" xsi:nil="true" /></UtdeltUtbytteKildeskatt-grp-9347><TilbakebetalingAvTidligereInnbetaltKapital-grp-7633 gruppeid="7633" /></AntallAksjerUtbytteOgTilbakebetalingAvTidligereInnbetaltKapit-grp-3990><Transaksjoner-grp-3992 gruppeid="3992"><KjopArvGaveStiftelseNyemisjonMv-grp-3993 gruppeid="3993" /></Transaksjoner-grp-3992><FondsemisjonSplittSkattefriFusjonFisjonSammenslaingDelingAv-grp-3994 gruppeid="3994" /><SalgArvGaveLikvidasjonPartiellLikvidasjonMv-grp-3995 gruppeid="3995" /><SpleisSkattefriFusjonOgSkattefriFisjon-grp-3996 gruppeid="3996" /><EndringerIAksjekapitalOgOverkurs-grp-3997 gruppeid="3997" /></Skjema>]]></b:FormDataXML>
+                        <b:FormID>4590360</b:FormID>
+                        <b:FormName>RF-1086U Aksjon\xc3\xa6rregisteroppgaven</b:FormName>
+                        <b:FormPaymentInfo i:nil="true" />
+                        <b:FormPresentationFieldValue>, Akjs\xc3\xb8n\xc3\xa6r 11</b:FormPresentationFieldValue>
+                        <b:FormSummary i:nil="true" />
+                        <b:ParentReference>4590359</b:ParentReference>
+                        <b:PaymentInformationE2B i:nil="true" />
+                        <b:PaymentInformationHTML i:nil="true" />
+                    </b:ArchivedFormBE>
+                </a:ArchivedFormList>
+                <a:ArchivedFormTaskSigningStepList>
+                    <a:ArchivedFormTaskSigningStepBEV2>
+                        <a:AuthenticationLevelID>3</a:AuthenticationLevelID>
+                        <a:AuthenticationMethod>11</a:AuthenticationMethod>
+                        <a:CertificateIssuedByName i:nil="true" />
+                        <a:CertificateIssuedForName i:nil="true" />
+                        <a:CertificateValidFrom>0001-01-01T00:00:00</a:CertificateValidFrom>
+                        <a:CertificateValidTo>0001-01-01T00:00:00</a:CertificateValidTo>
+                        <a:CreatedDateTime>2022-12-28T13:05:10.883</a:CreatedDateTime>
+                        <a:IsSigningAllRequired>YES</a:IsSigningAllRequired>
+                        <a:ProcessStepID>416810</a:ProcessStepID>
+                        <a:Signature i:nil="true" />
+                        <a:SignatureID>1411168</a:SignatureID>
+                        <a:SignatureText>Jeg forsikrer at oppgaven med eventuelle vedlegg inneholder
+                            s\xc3\xa5 fullstendige og riktige opplysninger som jeg kan gi.</a:SignatureText>
+                        <a:SignedAttachmentList i:nil="true"
+                            xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                        <a:SignedByUser>160977</a:SignedByUser>
+                        <a:SignedByUserName>S\xc3\x98BSTAD INGRID</a:SignedByUserName>
+                        <a:SignedByUserSSN>07074401621</a:SignedByUserSSN>
+                        <a:SignedFromList
+                            xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                            <b:int>4590359</b:int>
+                            <b:int>4590360</b:int>
+                        </a:SignedFromList>
+                    </a:ArchivedFormTaskSigningStepBEV2>
+                </a:ArchivedFormTaskSigningStepList>
+                <a:ExternalServiceCode>1051</a:ExternalServiceCode>
+                <a:ExternalServiceEditionCode>201010</a:ExternalServiceEditionCode>
+                <a:InvoiceInformation>0</a:InvoiceInformation>
+                <a:LastChanged>0001-01-01T00:00:00</a:LastChanged>
+                <a:PasswordEncryptedSymmetricKey i:nil="true"
+                    xmlns:b="http://schemas.altinn.no/services/Archive/KeyManagement/2010/10" />
+                <a:ReporteeElementID>13031503</a:ReporteeElementID>
+                <a:ReporteeID>50198572</a:ReporteeID>
+                <a:SOEncryptedSymmetricdKey i:nil="true"
+                    xmlns:b="http://schemas.altinn.no/services/Archive/KeyManagement/2010/10" />
+                <a:ServiceOwner>SKD</a:ServiceOwner>
+                <a:ssnOrgNumber>911007118</a:ssnOrgNumber>
+            </GetArchivedFormTaskBasicV2Result>
+        </GetArchivedFormTaskBasicV2Response>
+    </s:Body>
+</s:Envelope>

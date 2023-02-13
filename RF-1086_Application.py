@@ -814,19 +814,26 @@ def GetArchivedForms(username, userpassword, authcode, authType, orgnumber):
 
    re = requests.post("https://tt02.altinn.no/ServiceEngineExternal/ReporteeElementListExternalBasic.svc", data=body, headers=headers)
    
-   print(re.content)
-
    # Uses beautifulSoup to parse the xml return
    soup = bs4.BeautifulSoup(re.content, features="html.parser")
 
    #Error handling
    if (re.status_code == 200):
-      if (soup.find("a:reporteeelementbev2") != None):
-         # Gets the id of the document
-         responsStatus = soup.find("a:archiveid").string
-         return [True, responsStatus]
+      forms = soup.findAll("a:reporteeelementbev2")
+      if (forms != None):
+         for form in forms:
+            formSoup = bs4.BeautifulSoup(str(form), features="html.parser")
 
-      if (soup.find("a:reporteeelementbev2") != None):
+            title = formSoup.find("a:title").string
+            #Just gets the last element in the title which usually is the Stock class, could definily be wrong
+            title = title.split(",")
+            # Gets the id of the document
+            id = formSoup.find("a:archiveid").string
+
+            print("from found: ", title[-1], "id = ", id)
+
+         return [True, "Res"]
+      else:
          # Gets the id of the document
          return [False, "Did not find any previous submissions"]
    else:
@@ -882,12 +889,21 @@ def GetFormData(username, userpassword, authcode, authType, elementID):
 
    #Error handling
    if (re.status_code == 200):
-      #Finds formdata in the respons
-      formData = soup.find("b:formdataxml").string
-      #Makes a new soup from the formdata
-      formSoup = bs4.BeautifulSoup(formData, features="html.parser")
-      #Gets the number of "6 Innbetalt overkurs i denne aksjeklassen"
-      return [True, formSoup.find("aksjeoverkursisinaksjetypefjoraret-datadef-17662").string]
+      formsdata = soup.findAll("b:archivedformbe")
+      for formMetaData in formsdata:
+         formMetaDataSoup = bs4.BeautifulSoup(str(formMetaData), features="html.parser")
+         name = formMetaDataSoup.find("b:formname").string
+
+         #Finds formdata in the respons
+         formdata = formMetaDataSoup.find("b:formdataxml").string
+         
+         #Makes a new soup from the formdata
+         #formSoup = bs4.BeautifulSoup(str(formdata), features="html.parser")
+         #formSoup.find("aksjeoverkursisinaksjetypefjoraret-datadef-17662")
+        
+         #Gets the number of "6 Innbetalt overkurs i denne aksjeklassen"
+         print("form: ", name, "Data exist? ", formdata != None)
+      return [True, "success"]
    else:
       #Get error msg
       responsStatus = soup.find("altinnerrormessage").string
@@ -951,7 +967,7 @@ def sendAuthCodeToUser(username, userpassword, authType):
 #print(sendFormData(testUserUsername, testUserPassword, "codehere", AuthCodeType, CompanyNumber))
 
 #GetPreviouslySubmittedForms
-#print(GetArchivedForms(testUserUsername, testUserPassword, "aahq7", AuthCodeType, CompanyNumber))
+#print(GetArchivedForms(testUserUsername, testUserPassword, "7ygxd", AuthCodeType, CompanyNumber))
 
 #Get data of a prevousily submitted form
-print(GetFormData(testUserUsername, testUserPassword, "aahq7", AuthCodeType, "13031503"))
+print(GetFormData(testUserUsername, testUserPassword, "7ygxd", AuthCodeType, "13031503"))
